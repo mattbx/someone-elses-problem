@@ -1,0 +1,281 @@
+{
+ "id": "culture-canon-sample",
+ "name": "Culture ships (canon sample)",
+ "description": "A small sample of real ship names from Iain M. Banks' Culture novels, as a nod and a style reference. Load your own full list with `ntih import`.",
+ "license": "Names are the creative work of Iain M. Banks; listed here as a short fan reference, unaffiliated with the Banks estate.",
+ "attribution": "Iain M. Banks, the Culture novels (1987 to 2012).",
+ "source": "https://en.wikipedia.org/wiki/The_Culture",
+ "example": "Just Read The Instructions",
+ "entries": [
+  {
+   "name": "So Much For Subtlety",
+   "tags": [
+    "blunt",
+    "tool",
+    "big"
+   ],
+   "note": "GSV, The Player of Games"
+  },
+  {
+   "name": "Just Read The Instructions",
+   "tags": [
+    "docs",
+    "cli",
+    "tool"
+   ],
+   "note": "GCU, The Player of Games"
+  },
+  {
+   "name": "Of Course I Still Love You",
+   "tags": [
+    "fun",
+    "social",
+    "personal"
+   ],
+   "note": "GCU, The Player of Games"
+  },
+  {
+   "name": "Only Slightly Bent",
+   "tags": [
+    "audio",
+    "plugin",
+    "small"
+   ],
+   "note": "GCU, The State of the Art"
+  },
+  {
+   "name": "Not Invented Here",
+   "tags": [
+    "collection",
+    "tool",
+    "meta"
+   ],
+   "note": "MSV, Excession"
+  },
+  {
+   "name": "Limiting Factor",
+   "tags": [
+    "performance",
+    "constraint",
+    "serious"
+   ],
+   "note": "(D)GOU, The Player of Games"
+  },
+  {
+   "name": "Little Rascal",
+   "tags": [
+    "small",
+    "fun",
+    "toy"
+   ],
+   "note": "GSV, The Player of Games"
+  },
+  {
+   "name": "Youthful Indiscretion",
+   "tags": [
+    "experiment",
+    "prototype",
+    "fun"
+   ],
+   "note": "GSV, The Player of Games"
+  },
+  {
+   "name": "Flexible Demeanour",
+   "tags": [
+    "adaptive",
+    "config",
+    "ui"
+   ],
+   "note": "GCU, The Player of Games"
+  },
+  {
+   "name": "Size Isn't Everything",
+   "tags": [
+    "small",
+    "library",
+    "fast"
+   ],
+   "note": "GSV, Use of Weapons"
+  },
+  {
+   "name": "Congenital Optimist",
+   "tags": [
+    "prototype",
+    "startup",
+    "fun"
+   ],
+   "note": "GSV, Use of Weapons"
+  },
+  {
+   "name": "Funny, It Worked Last Time...",
+   "tags": [
+    "test",
+    "debug",
+    "ci"
+   ],
+   "note": "GCU, The State of the Art"
+  },
+  {
+   "name": "I Thought He Was With You",
+   "tags": [
+    "collab",
+    "team",
+    "sync"
+   ],
+   "note": "GCU, The State of the Art"
+  },
+  {
+   "name": "A Series Of Unlikely Explanations",
+   "tags": [
+    "docs",
+    "ai",
+    "writing"
+   ],
+   "note": "GCU, The State of the Art"
+  },
+  {
+   "name": "Prime Mover",
+   "tags": [
+    "automation",
+    "scheduler",
+    "core"
+   ],
+   "note": "Superlifter, The Player of Games"
+  },
+  {
+   "name": "Nervous Energy",
+   "tags": [
+    "monitor",
+    "alert",
+    "fast"
+   ],
+   "note": "GCU, Consider Phlebas"
+  },
+  {
+   "name": "Cargo Cult",
+   "tags": [
+    "dependency",
+    "package",
+    "fun"
+   ],
+   "note": "GSV, The Player of Games"
+  },
+  {
+   "name": "Arbitrary",
+   "tags": [
+    "random",
+    "generator",
+    "small"
+   ],
+   "note": "GCU, The State of the Art"
+  },
+  {
+   "name": "Profit Margin",
+   "tags": [
+    "finance",
+    "money",
+    "business"
+   ],
+   "note": "LSV, Consider Phlebas"
+  },
+  {
+   "name": "Screw Loose",
+   "tags": [
+    "experiment",
+    "fun",
+    "toy"
+   ],
+   "note": "Clipper, The Player of Games"
+  },
+  {
+   "name": "Well I Was In The Neighbourhood",
+   "tags": [
+    "network",
+    "social",
+    "fun"
+   ],
+   "note": "GCU, The State of the Art"
+  },
+  {
+   "name": "You'll Thank Me Later",
+   "tags": [
+    "refactor",
+    "maintenance",
+    "tool"
+   ],
+   "note": "GCU, The State of the Art"
+  },
+  {
+   "name": "Never Talk To Strangers",
+   "tags": [
+    "security",
+    "privacy",
+    "auth"
+   ],
+   "note": "GCU, The State of the Art"
+  },
+  {
+   "name": "Ultimate Ship The Second",
+   "tags": [
+    "fork",
+    "version",
+    "big"
+   ],
+   "note": "GCU, The State of the Art"
+  },
+  {
+   "name": "Determinist System",
+   "tags": [
+    "data",
+    "engine",
+    "big"
+   ],
+   "note": "GSV, Consider Phlebas"
+  },
+  {
+   "name": "Irregular Apocalypse",
+   "tags": [
+    "chaos",
+    "test",
+    "experiment"
+   ],
+   "note": "GSV, Consider Phlebas"
+  },
+  {
+   "name": "Trade Surplus Killer",
+   "tags": [
+    "finance",
+    "security",
+    "serious"
+   ],
+   "note": "ROU, Consider Phlebas"
+  },
+  {
+   "name": "Space Monster",
+   "tags": [
+    "game",
+    "big",
+    "fun"
+   ],
+   "note": "GCU, The State of the Art"
+  },
+  {
+   "name": "Big Sexy Beast",
+   "tags": [
+    "big",
+    "app",
+    "performance"
+   ],
+   "note": "GCU, The State of the Art"
+  },
+  {
+   "name": "Cantankerous",
+   "tags": [
+    "cli",
+    "tool",
+    "opinionated"
+   ],
+   "note": "GCU, The State of the Art"
+  }
+ ]
+}

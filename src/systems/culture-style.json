@@ -1,0 +1,1747 @@
+{
+ "id": "culture-style",
+ "name": "Culture-style ship names",
+ "description": "Original names in the wry, overlong style of the ship Minds in Iain M. Banks' Culture novels. Written for this project, so they're free to use and none are taken from the books.",
+ "license": "MIT",
+ "attribution": "Written for naming-things-is-hard. Inspired by, not copied from, Iain M. Banks' Culture novels.",
+ "example": "Mild Concern Noted",
+ "entries": [
+  {
+   "name": "Mild Concern Noted",
+   "tags": [
+    "monitor",
+    "ops",
+    "alert"
+   ],
+   "note": "For anything that watches and occasionally clears its throat."
+  },
+  {
+   "name": "Strictly Speaking, Optional",
+   "tags": [
+    "plugin",
+    "utility",
+    "small"
+   ],
+   "note": "Nice to have. Hard to give up."
+  },
+  {
+   "name": "Working Title, Provisionally",
+   "tags": [
+    "naming",
+    "prototype",
+    "meta"
+   ],
+   "note": "The name that admits it might not be the name."
+  },
+  {
+   "name": "Reasonable Under The Circumstances",
+   "tags": [
+    "tool",
+    "utility",
+    "serious"
+   ],
+   "note": "Defensible choices, made quickly."
+  },
+  {
+   "name": "Ambitious Scope Creep",
+   "tags": [
+    "big",
+    "app",
+    "platform"
+   ],
+   "note": "Started as a script."
+  },
+  {
+   "name": "Quietly Confident",
+   "tags": [
+    "tool",
+    "serious",
+    "cli"
+   ],
+   "note": "Does one thing and doesn't brag."
+  },
+  {
+   "name": "Please Hold",
+   "tags": [
+    "queue",
+    "network",
+    "async"
+   ],
+   "note": "For queues, waiting rooms and anything with a spinner."
+  },
+  {
+   "name": "Well, That Escalated",
+   "tags": [
+    "monitor",
+    "alert",
+    "ops"
+   ],
+   "note": "Incident tooling with a sense of humour."
+  },
+  {
+   "name": "Some Assembly Required",
+   "tags": [
+    "kit",
+    "components",
+    "design"
+   ],
+   "note": "Parts, not a finished product."
+  },
+  {
+   "name": "Batteries Sold Separately",
+   "tags": [
+    "kit",
+    "plugin",
+    "small"
+   ],
+   "note": "Brings the frame, you bring the power."
+  },
+  {
+   "name": "No Further Questions",
+   "tags": [
+    "docs",
+    "search",
+    "ai"
+   ],
+   "note": "Answers things."
+  },
+  {
+   "name": "The Long Way Round",
+   "tags": [
+    "slow",
+    "migration",
+    "data"
+   ],
+   "note": "For the careful route."
+  },
+  {
+   "name": "Measure Twice",
+   "tags": [
+    "design",
+    "test",
+    "precision"
+   ],
+   "note": "Precision tools and checklists."
+  },
+  {
+   "name": "Cut Once",
+   "tags": [
+    "refactor",
+    "tool",
+    "cli"
+   ],
+   "note": "Decisive edits."
+  },
+  {
+   "name": "Mostly Painless Refactor",
+   "tags": [
+    "refactor",
+    "code",
+    "dev"
+   ],
+   "note": "A cleanup that promises not to break things."
+  },
+  {
+   "name": "Ask Me Again Tomorrow",
+   "tags": [
+    "scheduler",
+    "time",
+    "cron"
+   ],
+   "note": "Schedulers and reminders."
+  },
+  {
+   "name": "Not Strictly Necessary",
+   "tags": [
+    "fun",
+    "toy",
+    "experiment"
+   ],
+   "note": "Delightful, pointless, kept anyway."
+  },
+  {
+   "name": "Slightly Overengineered",
+   "tags": [
+    "big",
+    "infra",
+    "platform"
+   ],
+   "note": "It does scale, if you ever need it to."
+  },
+  {
+   "name": "Built In A Weekend",
+   "tags": [
+    "small",
+    "prototype",
+    "experiment"
+   ],
+   "note": "Says what it is."
+  },
+  {
+   "name": "Deadline Was Merely Advisory",
+   "tags": [
+    "time",
+    "tracker",
+    "project"
+   ],
+   "note": "Project and task tracking."
+  },
+  {
+   "name": "Gentle Reminder",
+   "tags": [
+    "notification",
+    "time",
+    "small"
+   ],
+   "note": "Nudges, not nags."
+  },
+  {
+   "name": "Firm But Fair",
+   "tags": [
+    "security",
+    "auth",
+    "policy"
+   ],
+   "note": "Access control and rules."
+  },
+  {
+   "name": "Benefit Of The Doubt",
+   "tags": [
+    "test",
+    "validation",
+    "data"
+   ],
+   "note": "Forgiving parsers and validators."
+  },
+  {
+   "name": "Plausible Deniability",
+   "tags": [
+    "security",
+    "privacy",
+    "crypto"
+   ],
+   "note": "Privacy tools."
+  },
+  {
+   "name": "Under New Management",
+   "tags": [
+    "migration",
+    "refactor",
+    "fork"
+   ],
+   "note": "For forks and rewrites."
+  },
+  {
+   "name": "Second Opinion",
+   "tags": [
+    "review",
+    "ai",
+    "code"
+   ],
+   "note": "Reviewers, linters and checkers."
+  },
+  {
+   "name": "Considered Response",
+   "tags": [
+    "ai",
+    "writing",
+    "chat"
+   ],
+   "note": "Assistants that think first."
+  },
+  {
+   "name": "Appropriately Vague",
+   "tags": [
+    "docs",
+    "writing",
+    "ai"
+   ],
+   "note": "Summaries and abstracts."
+  },
+  {
+   "name": "Exactly As Specified",
+   "tags": [
+    "test",
+    "spec",
+    "serious"
+   ],
+   "note": "Contract tests and specs."
+  },
+  {
+   "name": "Fine, I'll Do It Myself",
+   "tags": [
+    "tool",
+    "automation",
+    "dev"
+   ],
+   "note": "Built because nothing else would do."
+  },
+  {
+   "name": "Not Invented Elsewhere",
+   "tags": [
+    "tool",
+    "collection",
+    "meta"
+   ],
+   "note": "A cousin of Not Invented Here."
+  },
+  {
+   "name": "Sounded Good At The Time",
+   "tags": [
+    "experiment",
+    "prototype",
+    "fun"
+   ],
+   "note": "For bold experiments."
+  },
+  {
+   "name": "In Hindsight, Obvious",
+   "tags": [
+    "ux",
+    "design",
+    "simple"
+   ],
+   "note": "Simple ideas that took a while."
+  },
+  {
+   "name": "Small Print Applies",
+   "tags": [
+    "docs",
+    "legal",
+    "terms"
+   ],
+   "note": "Licences, terms and fine print."
+  },
+  {
+   "name": "Terms And Conditions May Vary",
+   "tags": [
+    "config",
+    "settings",
+    "policy"
+   ],
+   "note": "Configuration tools."
+  },
+  {
+   "name": "Results Not Typical",
+   "tags": [
+    "data",
+    "analytics",
+    "charts"
+   ],
+   "note": "Analytics and dashboards."
+  },
+  {
+   "name": "Margin Of Error",
+   "tags": [
+    "data",
+    "stats",
+    "analytics"
+   ],
+   "note": "Statistics and estimates."
+  },
+  {
+   "name": "Signal Over Noise",
+   "tags": [
+    "audio",
+    "filter",
+    "data"
+   ],
+   "note": "Filters, of sound or of data."
+  },
+  {
+   "name": "Unexpected Harmonics",
+   "tags": [
+    "audio",
+    "music",
+    "synth"
+   ],
+   "note": "Synths and oscillators."
+  },
+  {
+   "name": "Polite Feedback Loop",
+   "tags": [
+    "audio",
+    "effect",
+    "delay"
+   ],
+   "note": "Delays, reverbs and loops."
+  },
+  {
+   "name": "Softly Clipping",
+   "tags": [
+    "audio",
+    "effect",
+    "distortion"
+   ],
+   "note": "Saturation and distortion."
+  },
+  {
+   "name": "Tempo Is A Suggestion",
+   "tags": [
+    "audio",
+    "music",
+    "sequencer"
+   ],
+   "note": "Sequencers and clocks."
+  },
+  {
+   "name": "Off The Grid",
+   "tags": [
+    "audio",
+    "sequencer",
+    "generative"
+   ],
+   "note": "Unquantised and generative music."
+  },
+  {
+   "name": "Ninety Percent Reverb",
+   "tags": [
+    "audio",
+    "effect",
+    "ambient"
+   ],
+   "note": "Ambient effects."
+  },
+  {
+   "name": "Turn It Up Anyway",
+   "tags": [
+    "audio",
+    "loud",
+    "mastering"
+   ],
+   "note": "Mastering and loudness."
+  },
+  {
+   "name": "Patch Cable Spaghetti",
+   "tags": [
+    "audio",
+    "modular",
+    "plugin"
+   ],
+   "note": "Modular synth plugins."
+  },
+  {
+   "name": "Everything Is A Remix",
+   "tags": [
+    "audio",
+    "sampler",
+    "generator"
+   ],
+   "note": "Samplers and remix tools."
+  },
+  {
+   "name": "Low Pass, High Hopes",
+   "tags": [
+    "audio",
+    "filter",
+    "synth"
+   ],
+   "note": "Filter plugins."
+  },
+  {
+   "name": "Pleasing Gradient",
+   "tags": [
+    "visual",
+    "design",
+    "color"
+   ],
+   "note": "Colour and gradient tools."
+  },
+  {
+   "name": "Ease In, Ease Out",
+   "tags": [
+    "animation",
+    "motion",
+    "design"
+   ],
+   "note": "Easing and motion tools."
+  },
+  {
+   "name": "Delightfully Unnecessary Animation",
+   "tags": [
+    "animation",
+    "visual",
+    "fun"
+   ],
+   "note": "Effects that make people smile."
+  },
+  {
+   "name": "Pixel Perfect, Mostly",
+   "tags": [
+    "design",
+    "visual",
+    "ui"
+   ],
+   "note": "UI polish."
+  },
+  {
+   "name": "Plenty Of Whitespace",
+   "tags": [
+    "design",
+    "layout",
+    "ui"
+   ],
+   "note": "Layout and spacing tools."
+  },
+  {
+   "name": "Shadow Of A Doubt",
+   "tags": [
+    "design",
+    "visual",
+    "shadow"
+   ],
+   "note": "Shadow sets and depth."
+  },
+  {
+   "name": "Smoothly Interpolated",
+   "tags": [
+    "animation",
+    "motion",
+    "easing"
+   ],
+   "note": "Curves and interpolation."
+  },
+  {
+   "name": "Kerning Is Optional",
+   "tags": [
+    "design",
+    "type",
+    "font"
+   ],
+   "note": "Typography tools."
+  },
+  {
+   "name": "Contrast Ratio Acceptable",
+   "tags": [
+    "design",
+    "accessibility",
+    "color"
+   ],
+   "note": "Accessibility checks."
+  },
+  {
+   "name": "Rather Too Many Particles",
+   "tags": [
+    "visual",
+    "animation",
+    "effect"
+   ],
+   "note": "Particle effects and backgrounds."
+  },
+  {
+   "name": "Cursor With Opinions",
+   "tags": [
+    "ui",
+    "interaction",
+    "effect"
+   ],
+   "note": "Cursor effects."
+  },
+  {
+   "name": "Decorative Background Process",
+   "tags": [
+    "visual",
+    "background",
+    "animation"
+   ],
+   "note": "Animated backgrounds."
+  },
+  {
+   "name": "Blob Of Indeterminate Shape",
+   "tags": [
+    "visual",
+    "animation",
+    "generative"
+   ],
+   "note": "Generative shapes."
+  },
+  {
+   "name": "Ribbon Of Questionable Purpose",
+   "tags": [
+    "visual",
+    "animation",
+    "svg"
+   ],
+   "note": "Curves, ribbons and paths."
+  },
+  {
+   "name": "Hover State Of Mind",
+   "tags": [
+    "ui",
+    "interaction",
+    "design"
+   ],
+   "note": "Hover and micro-interactions."
+  },
+  {
+   "name": "Teardown Before Breakfast",
+   "tags": [
+    "teardown",
+    "docs",
+    "learning"
+   ],
+   "note": "Teardowns and write-ups."
+  },
+  {
+   "name": "Taken Apart Carefully",
+   "tags": [
+    "teardown",
+    "learning",
+    "docs"
+   ],
+   "note": "Reverse engineering, politely."
+  },
+  {
+   "name": "Show Your Working",
+   "tags": [
+    "docs",
+    "learning",
+    "teaching"
+   ],
+   "note": "Explainers and tutorials."
+  },
+  {
+   "name": "Read The Source",
+   "tags": [
+    "docs",
+    "code",
+    "learning"
+   ],
+   "note": "Code-reading tools."
+  },
+  {
+   "name": "Footnotes Included",
+   "tags": [
+    "docs",
+    "writing",
+    "reference"
+   ],
+   "note": "Reference material."
+  },
+  {
+   "name": "Glossary Of Terms",
+   "tags": [
+    "docs",
+    "reference",
+    "dictionary"
+   ],
+   "note": "Dictionaries and glossaries."
+  },
+  {
+   "name": "Index Of Everything",
+   "tags": [
+    "search",
+    "data",
+    "catalog"
+   ],
+   "note": "Catalogues and search."
+  },
+  {
+   "name": "Lost And Found",
+   "tags": [
+    "search",
+    "files",
+    "recovery"
+   ],
+   "note": "Search and recovery."
+  },
+  {
+   "name": "Where Did I Put That",
+   "tags": [
+    "search",
+    "files",
+    "notes"
+   ],
+   "note": "Personal search tools."
+  },
+  {
+   "name": "Remembered Everything",
+   "tags": [
+    "notes",
+    "memory",
+    "ai"
+   ],
+   "note": "Memory and notes."
+  },
+  {
+   "name": "Forgot On Purpose",
+   "tags": [
+    "privacy",
+    "cache",
+    "cleanup"
+   ],
+   "note": "Cleanup and cache clearing."
+  },
+  {
+   "name": "Tidied Up Nicely",
+   "tags": [
+    "cleanup",
+    "format",
+    "lint"
+   ],
+   "note": "Formatters and organisers."
+  },
+  {
+   "name": "Folders Within Folders",
+   "tags": [
+    "files",
+    "organise",
+    "tool"
+   ],
+   "note": "File organisation."
+  },
+  {
+   "name": "Rename Everything",
+   "tags": [
+    "files",
+    "naming",
+    "batch"
+   ],
+   "note": "Batch renaming."
+  },
+  {
+   "name": "Naming Things Remains Hard",
+   "tags": [
+    "naming",
+    "meta",
+    "tool"
+   ],
+   "note": "Self-explanatory."
+  },
+  {
+   "name": "Fresh Out Of Names",
+   "tags": [
+    "naming",
+    "generator",
+    "fun"
+   ],
+   "note": "For name generators."
+  },
+  {
+   "name": "Ship It On Friday",
+   "tags": [
+    "deploy",
+    "ops",
+    "ci"
+   ],
+   "note": "Deploy tooling with nerve."
+  },
+  {
+   "name": "Rolled Back Gracefully",
+   "tags": [
+    "deploy",
+    "ops",
+    "infra"
+   ],
+   "note": "Rollback and release tools."
+  },
+  {
+   "name": "Green Across The Board",
+   "tags": [
+    "ci",
+    "test",
+    "monitor"
+   ],
+   "note": "Test and CI dashboards."
+  },
+  {
+   "name": "Flaky But Loyal",
+   "tags": [
+    "test",
+    "ci",
+    "retry"
+   ],
+   "note": "Retry logic and resilience."
+  },
+  {
+   "name": "Works On My Machine",
+   "tags": [
+    "dev",
+    "env",
+    "container"
+   ],
+   "note": "Dev environments."
+  },
+  {
+   "name": "Reproducible, Allegedly",
+   "tags": [
+    "build",
+    "env",
+    "dev"
+   ],
+   "note": "Build tooling."
+  },
+  {
+   "name": "Tabs Not Spaces",
+   "tags": [
+    "format",
+    "code",
+    "editor"
+   ],
+   "note": "Editor tooling."
+  },
+  {
+   "name": "Merge Conflict Of Interest",
+   "tags": [
+    "git",
+    "code",
+    "collab"
+   ],
+   "note": "Git tools."
+  },
+  {
+   "name": "Commit Message Of Regret",
+   "tags": [
+    "git",
+    "dev",
+    "fun"
+   ],
+   "note": "Git helpers."
+  },
+  {
+   "name": "Branch Of Uncertain Purpose",
+   "tags": [
+    "git",
+    "experiment",
+    "dev"
+   ],
+   "note": "Experiments on branches."
+  },
+  {
+   "name": "Dependency Of A Dependency",
+   "tags": [
+    "package",
+    "build",
+    "dev"
+   ],
+   "note": "Package and dependency tools."
+  },
+  {
+   "name": "Semver Is A State Of Mind",
+   "tags": [
+    "release",
+    "package",
+    "version"
+   ],
+   "note": "Release tooling."
+  },
+  {
+   "name": "Unreleased Changes",
+   "tags": [
+    "changelog",
+    "release",
+    "docs"
+   ],
+   "note": "Changelogs."
+  },
+  {
+   "name": "Caching Intensifies",
+   "tags": [
+    "performance",
+    "cache",
+    "fast"
+   ],
+   "note": "Caches and speed-ups."
+  },
+  {
+   "name": "Faster Than Reasonable",
+   "tags": [
+    "performance",
+    "fast",
+    "tool"
+   ],
+   "note": "Speed-obsessed tools."
+  },
+  {
+   "name": "Latency Is Relative",
+   "tags": [
+    "network",
+    "performance",
+    "monitor"
+   ],
+   "note": "Network tools."
+  },
+  {
+   "name": "Packets In The Night",
+   "tags": [
+    "network",
+    "sync",
+    "data"
+   ],
+   "note": "Sync and transfer."
+  },
+  {
+   "name": "Eventually Consistent",
+   "tags": [
+    "sync",
+    "data",
+    "database"
+   ],
+   "note": "Sync engines and databases."
+  },
+  {
+   "name": "Single Source Of Truth",
+   "tags": [
+    "data",
+    "config",
+    "database"
+   ],
+   "note": "Config and data stores."
+  },
+  {
+   "name": "Schema Of Things",
+   "tags": [
+    "data",
+    "database",
+    "types"
+   ],
+   "note": "Schemas and types."
+  },
+  {
+   "name": "Typed Strictly",
+   "tags": [
+    "types",
+    "code",
+    "dev"
+   ],
+   "note": "Type tooling."
+  },
+  {
+   "name": "Null Hypothesis",
+   "tags": [
+    "data",
+    "stats",
+    "test"
+   ],
+   "note": "Experiments and A/B tests."
+  },
+  {
+   "name": "Correlation, Not Causation",
+   "tags": [
+    "data",
+    "analytics",
+    "stats"
+   ],
+   "note": "Analytics."
+  },
+  {
+   "name": "Spreadsheet Of Destiny",
+   "tags": [
+    "data",
+    "table",
+    "finance"
+   ],
+   "note": "Tables and spreadsheets."
+  },
+  {
+   "name": "Invoice Me Later",
+   "tags": [
+    "finance",
+    "money",
+    "business"
+   ],
+   "note": "Invoicing and billing."
+  },
+  {
+   "name": "Nominal Fee",
+   "tags": [
+    "finance",
+    "money",
+    "pricing"
+   ],
+   "note": "Pricing tools."
+  },
+  {
+   "name": "Overdue But Charming",
+   "tags": [
+    "finance",
+    "tracker",
+    "reminder"
+   ],
+   "note": "Payment reminders."
+  },
+  {
+   "name": "Client Expectations Managed",
+   "tags": [
+    "business",
+    "project",
+    "crm"
+   ],
+   "note": "Client tools."
+  },
+  {
+   "name": "Meeting Could Have Been An Email",
+   "tags": [
+    "productivity",
+    "meetings",
+    "ai"
+   ],
+   "note": "Meeting tools."
+  },
+  {
+   "name": "Minutes Of The Previous Meeting",
+   "tags": [
+    "meetings",
+    "notes",
+    "transcript"
+   ],
+   "note": "Transcripts and notes."
+  },
+  {
+   "name": "Agenda Item Seven",
+   "tags": [
+    "meetings",
+    "planning",
+    "project"
+   ],
+   "note": "Planning tools."
+  },
+  {
+   "name": "Out Of Office, Mentally",
+   "tags": [
+    "productivity",
+    "status",
+    "fun"
+   ],
+   "note": "Status and availability."
+  },
+  {
+   "name": "Inbox Zero, Briefly",
+   "tags": [
+    "email",
+    "productivity",
+    "tool"
+   ],
+   "note": "Email tools."
+  },
+  {
+   "name": "Do Not Disturb",
+   "tags": [
+    "focus",
+    "productivity",
+    "notification"
+   ],
+   "note": "Focus tools."
+  },
+  {
+   "name": "Quiet Hours",
+   "tags": [
+    "focus",
+    "time",
+    "notification"
+   ],
+   "note": "Scheduling and quiet time."
+  },
+  {
+   "name": "Well Rested Mind",
+   "tags": [
+    "health",
+    "habit",
+    "time"
+   ],
+   "note": "Wellbeing tools."
+  },
+  {
+   "name": "Thinking Out Loud",
+   "tags": [
+    "ai",
+    "writing",
+    "notes"
+   ],
+   "note": "Brainstorming."
+  },
+  {
+   "name": "Drafted By Committee",
+   "tags": [
+    "writing",
+    "collab",
+    "docs"
+   ],
+   "note": "Collaborative writing."
+  },
+  {
+   "name": "Edited For Clarity",
+   "tags": [
+    "writing",
+    "editor",
+    "ai"
+   ],
+   "note": "Editing tools."
+  },
+  {
+   "name": "Plain Words Only",
+   "tags": [
+    "writing",
+    "simple",
+    "docs"
+   ],
+   "note": "Plain-language tools."
+  },
+  {
+   "name": "Says What It Does",
+   "tags": [
+    "cli",
+    "tool",
+    "simple"
+   ],
+   "note": "Honest tools."
+  },
+  {
+   "name": "Does What It Says",
+   "tags": [
+    "cli",
+    "tool",
+    "simple"
+   ],
+   "note": "The companion piece."
+  },
+  {
+   "name": "Under The Hood",
+   "tags": [
+    "infra",
+    "internals",
+    "dev"
+   ],
+   "note": "Internals and debugging."
+  },
+  {
+   "name": "Bug Of Uncommon Charm",
+   "tags": [
+    "debug",
+    "dev",
+    "fun"
+   ],
+   "note": "Debuggers."
+  },
+  {
+   "name": "Stack Trace Of Shame",
+   "tags": [
+    "debug",
+    "error",
+    "monitor"
+   ],
+   "note": "Error tracking."
+  },
+  {
+   "name": "Rubber Duck, Promoted",
+   "tags": [
+    "debug",
+    "ai",
+    "dev"
+   ],
+   "note": "Debugging assistants."
+  },
+  {
+   "name": "Root Cause Undetermined",
+   "tags": [
+    "debug",
+    "ops",
+    "incident"
+   ],
+   "note": "Incident analysis."
+  },
+  {
+   "name": "Logs All The Way Down",
+   "tags": [
+    "logging",
+    "monitor",
+    "ops"
+   ],
+   "note": "Logging tools."
+  },
+  {
+   "name": "Telemetry, Politely",
+   "tags": [
+    "analytics",
+    "privacy",
+    "monitor"
+   ],
+   "note": "Privacy-friendly analytics."
+  },
+  {
+   "name": "Keeper Of Secrets",
+   "tags": [
+    "security",
+    "secrets",
+    "config"
+   ],
+   "note": "Secrets management."
+  },
+  {
+   "name": "Locked, Loaded, Logged Out",
+   "tags": [
+    "security",
+    "auth",
+    "session"
+   ],
+   "note": "Auth and sessions."
+  },
+  {
+   "name": "Two Factors Minimum",
+   "tags": [
+    "security",
+    "auth",
+    "2fa"
+   ],
+   "note": "Multi-factor auth."
+  },
+  {
+   "name": "Trust But Verify",
+   "tags": [
+    "security",
+    "validation",
+    "test"
+   ],
+   "note": "Verification tools."
+  },
+  {
+   "name": "Here Be Dragons",
+   "tags": [
+    "experiment",
+    "legacy",
+    "warning"
+   ],
+   "note": "Risky or legacy code."
+  },
+  {
+   "name": "Legacy Of Questionable Code",
+   "tags": [
+    "legacy",
+    "refactor",
+    "migration"
+   ],
+   "note": "Legacy rescue."
+  },
+  {
+   "name": "Abandoned Then Rescued",
+   "tags": [
+    "fork",
+    "maintenance",
+    "oss"
+   ],
+   "note": "Revived projects."
+  },
+  {
+   "name": "Open Source, Open Mind",
+   "tags": [
+    "oss",
+    "community",
+    "docs"
+   ],
+   "note": "Community projects."
+  },
+  {
+   "name": "Pull Requests Welcome",
+   "tags": [
+    "oss",
+    "community",
+    "collab"
+   ],
+   "note": "Contributor tooling."
+  },
+  {
+   "name": "Issue Tracker Of Hope",
+   "tags": [
+    "tracker",
+    "project",
+    "oss"
+   ],
+   "note": "Issue tracking."
+  },
+  {
+   "name": "Roadmap Subject To Change",
+   "tags": [
+    "planning",
+    "project",
+    "product"
+   ],
+   "note": "Roadmaps."
+  },
+  {
+   "name": "Product Of Its Environment",
+   "tags": [
+    "product",
+    "design",
+    "research"
+   ],
+   "note": "Product research."
+  },
+  {
+   "name": "User Research Pending",
+   "tags": [
+    "research",
+    "ux",
+    "product"
+   ],
+   "note": "Research tools."
+  },
+  {
+   "name": "Prototype Of A Prototype",
+   "tags": [
+    "prototype",
+    "experiment",
+    "small"
+   ],
+   "note": "Very early ideas."
+  },
+  {
+   "name": "Minimum Viable Optimism",
+   "tags": [
+    "prototype",
+    "startup",
+    "product"
+   ],
+   "note": "MVPs."
+  },
+  {
+   "name": "Pivot Pending",
+   "tags": [
+    "startup",
+    "product",
+    "experiment"
+   ],
+   "note": "Products finding their shape."
+  },
+  {
+   "name": "Moonshot, Low Orbit",
+   "tags": [
+    "ambitious",
+    "experiment",
+    "big"
+   ],
+   "note": "Ambitious but grounded."
+  },
+  {
+   "name": "Seemed Easier On Paper",
+   "tags": [
+    "big",
+    "app",
+    "complex"
+   ],
+   "note": "Bigger than expected."
+  },
+  {
+   "name": "Surprisingly Load Bearing",
+   "tags": [
+    "infra",
+    "core",
+    "utility"
+   ],
+   "note": "The small thing everything depends on."
+  },
+  {
+   "name": "Tiny But Essential",
+   "tags": [
+    "small",
+    "utility",
+    "library"
+   ],
+   "note": "Small libraries."
+  },
+  {
+   "name": "Smaller Than It Looks",
+   "tags": [
+    "small",
+    "library",
+    "fast"
+   ],
+   "note": "Tiny bundles."
+  },
+  {
+   "name": "Bigger On The Inside",
+   "tags": [
+    "big",
+    "app",
+    "storage"
+   ],
+   "note": "Roomy apps."
+  },
+  {
+   "name": "Pocket Sized Universe",
+   "tags": [
+    "mobile",
+    "game",
+    "small"
+   ],
+   "note": "Small games and mobile apps."
+  },
+  {
+   "name": "Game Theory Optional",
+   "tags": [
+    "game",
+    "strategy",
+    "fun"
+   ],
+   "note": "Strategy games."
+  },
+  {
+   "name": "Respawn Point",
+   "tags": [
+    "game",
+    "save",
+    "state"
+   ],
+   "note": "Save states and checkpoints."
+  },
+  {
+   "name": "High Score Of Little Consequence",
+   "tags": [
+    "game",
+    "arcade",
+    "fun"
+   ],
+   "note": "Arcade toys."
+  },
+  {
+   "name": "Procedurally Generated Optimism",
+   "tags": [
+    "generative",
+    "game",
+    "random"
+   ],
+   "note": "Procedural generation."
+  },
+  {
+   "name": "Random But Fair",
+   "tags": [
+    "random",
+    "generator",
+    "game"
+   ],
+   "note": "Randomisers."
+  },
+  {
+   "name": "Dice With Opinions",
+   "tags": [
+    "random",
+    "game",
+    "tool"
+   ],
+   "note": "Dice and probability."
+  },
+  {
+   "name": "Map Not To Scale",
+   "tags": [
+    "map",
+    "geo",
+    "visual"
+   ],
+   "note": "Maps."
+  },
+  {
+   "name": "Somewhere Over There",
+   "tags": [
+    "geo",
+    "location",
+    "travel"
+   ],
+   "note": "Location tools."
+  },
+  {
+   "name": "Weather Permitting",
+   "tags": [
+    "weather",
+    "data",
+    "forecast"
+   ],
+   "note": "Weather and forecasts."
+  },
+  {
+   "name": "Mostly Sunny",
+   "tags": [
+    "weather",
+    "dashboard",
+    "fun"
+   ],
+   "note": "Cheerful dashboards."
+  },
+  {
+   "name": "Time Zone Of Confusion",
+   "tags": [
+    "time",
+    "calendar",
+    "global"
+   ],
+   "note": "Time zone tools."
+  },
+  {
+   "name": "Calendar Says Otherwise",
+   "tags": [
+    "calendar",
+    "scheduler",
+    "time"
+   ],
+   "note": "Calendars."
+  },
+  {
+   "name": "Clockwork Assistant",
+   "tags": [
+    "automation",
+    "scheduler",
+    "ai"
+   ],
+   "note": "Automation."
+  },
+  {
+   "name": "Robot With Manners",
+   "tags": [
+    "ai",
+    "agent",
+    "automation"
+   ],
+   "note": "Agents that ask first."
+  },
+  {
+   "name": "Agent Of Mild Chaos",
+   "tags": [
+    "ai",
+    "agent",
+    "experiment"
+   ],
+   "note": "Experimental agents."
+  },
+  {
+   "name": "Context Window Shopping",
+   "tags": [
+    "ai",
+    "llm",
+    "prompt"
+   ],
+   "note": "Prompt tooling."
+  },
+  {
+   "name": "Prompt And Circumstance",
+   "tags": [
+    "ai",
+    "prompt",
+    "writing"
+   ],
+   "note": "Prompt libraries."
+  },
+  {
+   "name": "Tokens Well Spent",
+   "tags": [
+    "ai",
+    "cost",
+    "llm"
+   ],
+   "note": "LLM cost tools."
+  },
+  {
+   "name": "Hallucination Free, Mostly",
+   "tags": [
+    "ai",
+    "eval",
+    "test"
+   ],
+   "note": "AI evals."
+  },
+  {
+   "name": "Skill Issue Resolved",
+   "tags": [
+    "ai",
+    "skill",
+    "plugin"
+   ],
+   "note": "Claude skills and plugins."
+  },
+  {
+   "name": "Server Of Many Tools",
+   "tags": [
+    "mcp",
+    "ai",
+    "server"
+   ],
+   "note": "MCP servers."
+  },
+  {
+   "name": "Model Context, Supplied",
+   "tags": [
+    "mcp",
+    "ai",
+    "context"
+   ],
+   "note": "Context providers."
+  },
+  {
+   "name": "Asked Nicely",
+   "tags": [
+    "api",
+    "client",
+    "network"
+   ],
+   "note": "API clients."
+  },
+  {
+   "name": "Endpoint Of No Return",
+   "tags": [
+    "api",
+    "server",
+    "web"
+   ],
+   "note": "APIs and backends."
+  },
+  {
+   "name": "Webhook, Line And Sinker",
+   "tags": [
+    "webhook",
+    "integration",
+    "api"
+   ],
+   "note": "Integrations."
+  },
+  {
+   "name": "Glue Code Of Distinction",
+   "tags": [
+    "integration",
+    "automation",
+    "tool"
+   ],
+   "note": "Glue between services."
+  },
+  {
+   "name": "Bridge To Somewhere",
+   "tags": [
+    "integration",
+    "sync",
+    "api"
+   ],
+   "note": "Connectors."
+  },
+  {
+   "name": "Static Site, Dynamic Hopes",
+   "tags": [
+    "web",
+    "static",
+    "site"
+   ],
+   "note": "Static sites."
+  },
+  {
+   "name": "Above The Fold",
+   "tags": [
+    "web",
+    "landing",
+    "design"
+   ],
+   "note": "Landing pages."
+  },
+  {
+   "name": "Scroll Of Indefinite Length",
+   "tags": [
+    "web",
+    "scroll",
+    "animation"
+   ],
+   "note": "Scroll effects."
+  },
+  {
+   "name": "Responsive To Feedback",
+   "tags": [
+    "web",
+    "responsive",
+    "design"
+   ],
+   "note": "Responsive layouts."
+  },
+  {
+   "name": "Dark Mode Preferred",
+   "tags": [
+    "design",
+    "theme",
+    "color"
+   ],
+   "note": "Themes."
+  },
+  {
+   "name": "Component Of Good Character",
+   "tags": [
+    "components",
+    "ui",
+    "library"
+   ],
+   "note": "Component libraries."
+  },
+  {
+   "name": "Design System Of Record",
+   "tags": [
+    "design",
+    "tokens",
+    "system"
+   ],
+   "note": "Design systems."
+  },
+  {
+   "name": "Tokens Of Affection",
+   "tags": [
+    "design",
+    "tokens",
+    "color"
+   ],
+   "note": "Design tokens."
+  },
+  {
+   "name": "Playground Of Variables",
+   "tags": [
+    "playground",
+    "tool",
+    "interactive"
+   ],
+   "note": "Interactive playgrounds."
+  },
+  {
+   "name": "Tweak Until Satisfied",
+   "tags": [
+    "playground",
+    "design",
+    "controls"
+   ],
+   "note": "Tweakable controls."
+  },
+  {
+   "name": "Copy, Paste, Ship",
+   "tags": [
+    "snippet",
+    "code",
+    "tool"
+   ],
+   "note": "Snippet tools."
+  },
+  {
+   "name": "Snippet Of Wisdom",
+   "tags": [
+    "snippet",
+    "docs",
+    "code"
+   ],
+   "note": "Snippet libraries."
+  },
+  {
+   "name": "Collected Odds And Ends",
+   "tags": [
+    "collection",
+    "misc",
+    "tool"
+   ],
+   "note": "Grab bags."
+  },
+  {
+   "name": "Cabinet Of Curiosities",
+   "tags": [
+    "collection",
+    "showcase",
+    "gallery"
+   ],
+   "note": "Galleries."
+  },
+  {
+   "name": "Gallery Of Small Wonders",
+   "tags": [
+    "gallery",
+    "visual",
+    "collection"
+   ],
+   "note": "Showcases."
+  }
+ ]
+}

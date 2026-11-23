@@ -1,0 +1,32 @@
+{
+  "name": "naming-things-is-hard",
+  "version": "0.1.0",
+  "description": "Suggests working-title names you haven't used yet, from pluggable naming systems (Culture-style ship names and friends). CLI, MCP server and Claude skill.",
+  "type": "module",
+  "license": "MIT",
+  "bin": { "ntih": "dist/cli.js" },
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
+    "./node": { "types": "./dist/node.d.ts", "default": "./dist/node.js" }
+  },
+  "files": ["dist", "README.md", "LICENSE"],
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "dev": "tsx src/cli.ts"
+  },
+  "keywords": ["naming", "names", "culture", "iain-m-banks", "mcp", "cli", "claude-skill"],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsup": "^8.5.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0",
+    "vitest": "^3.2.0"
+  }
+}
