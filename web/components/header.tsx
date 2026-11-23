@@ -19,20 +19,16 @@ export function Header({
     <header className="flex items-start justify-between gap-4">
       <div className="grid min-w-0 gap-1">
         <h1 className="font-mono text-lg font-semibold tracking-[-0.02em]">someone.else&apos;s.problem</h1>
-        <p className="font-mono text-[14px] text-muted-foreground">Names for your projects, so naming isn&apos;t your problem.</p>
+        <p className="text-sm text-muted-foreground">Names for your projects, so naming isn&apos;t your problem.</p>
         <nav className="mt-1.5 flex gap-1.5" aria-label="Other ways to use it">
           {[
             ["CLI", "#use"],
             ["MCP", "#use"],
             ["GitHub", REPO],
           ].map(([label, href]) => (
-            <a
-              key={label}
-              href={href}
-              className="type-meta rounded-md border px-2 py-0.5 text-muted-foreground transition-colors hover:bg-surface-elevated hover:text-foreground"
-            >
+            <Button key={label} variant="outline" size="xs" nativeButton={false} render={<a href={href} />}>
               {label}
-            </a>
+            </Button>
           ))}
         </nav>
       </div>

@@ -2,6 +2,7 @@
 
 import { nameKey, type NamingSystem, type Registry, type UsedName } from "@sep/core";
 import { useSyncExternalStore } from "react";
+import type { NameFormat } from "@/lib/name-format";
 
 export interface ShortlistItem {
   name: string;
@@ -14,10 +15,12 @@ export interface AppState {
   shortlist: ShortlistItem[];
   /** Lists the user dropped in. Stay in this browser. */
   myLists: NamingSystem[];
+  /** The case each card's copy chip and "Copy all" use. */
+  nameFormat: NameFormat;
 }
 
 const KEY = "sep:v1";
-const EMPTY: AppState = { used: [], shortlist: [], myLists: [] };
+const EMPTY: AppState = { used: [], shortlist: [], myLists: [], nameFormat: "slug" };
 
 let state: AppState = EMPTY;
 let loaded = false;
@@ -92,6 +95,10 @@ export function toggleShortlist(item: ShortlistItem): boolean {
 
 export function clearShortlist() {
   set({ shortlist: [] });
+}
+
+export function setNameFormat(nameFormat: NameFormat) {
+  set({ nameFormat });
 }
 
 export function saveMyList(system: NamingSystem) {

@@ -2,46 +2,52 @@
 
 import { Check, Copy } from "lucide-react";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { copyText } from "@/lib/files";
 
 function Panel({ label, lines, copy, comment }: { label: string; lines: string[]; copy: string; comment: string }) {
   const [done, setDone] = useState(false);
   return (
-    <div className="min-w-0 overflow-hidden rounded-lg border">
-      <div className="flex items-center justify-between border-b px-3 py-1.5">
-        <span className="type-label text-muted-foreground">{label}</span>
-        <button
-          type="button"
-          aria-label={`Copy ${label} command`}
-          onClick={async () => {
-            if (await copyText(copy)) {
-              setDone(true);
-              setTimeout(() => setDone(false), 1500);
-            }
-          }}
-          className="grid size-7 cursor-pointer place-items-center rounded-md text-muted-foreground transition-colors hover:bg-surface-elevated hover:text-foreground"
-        >
-          {done ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}
-        </button>
-      </div>
-      <pre className="overflow-x-auto bg-surface px-3 py-3 font-mono text-[13px] leading-relaxed">
-        {lines.map((l, i) => (
-          <span key={i}>
-            {i === 0 && <span className="text-foreground-subtle">$ </span>}
-            {l}
-            {"\n"}
-          </span>
-        ))}
-        <span className="text-foreground-subtle"># {comment}</span>
-      </pre>
-    </div>
+    <Card size="sm" className="min-w-0">
+      <CardHeader className="border-b">
+        <CardTitle>{label}</CardTitle>
+        <CardAction>
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            aria-label={`Copy ${label} command`}
+            onClick={async () => {
+              if (await copyText(copy)) {
+                setDone(true);
+                setTimeout(() => setDone(false), 1500);
+              }
+            }}
+          >
+            {done ? <Check /> : <Copy />}
+          </Button>
+        </CardAction>
+      </CardHeader>
+      <CardContent>
+        <pre className="overflow-x-auto font-mono text-sm">
+          {lines.map((l, i) => (
+            <span key={i}>
+              {i === 0 && <span className="text-muted-foreground">$ </span>}
+              {l}
+              {"\n"}
+            </span>
+          ))}
+          <span className="text-muted-foreground"># {comment}</span>
+        </pre>
+      </CardContent>
+    </Card>
   );
 }
 
 export function InstallPanels() {
   return (
     <section id="use" aria-labelledby="use-label" className="grid scroll-mt-24 gap-3">
-      <h2 id="use-label" className="type-label text-muted-foreground">
+      <h2 id="use-label" className="text-sm font-medium">
         Use it where you work
       </h2>
       <div className="grid gap-3 md:grid-cols-2">
@@ -58,8 +64,8 @@ export function InstallPanels() {
           comment="then ask Claude to name your project"
         />
       </div>
-      <p className="text-[13px] text-foreground-secondary">
-        There&apos;s also a Claude skill in the repo&apos;s <code className="font-mono text-[12px]">skill/</code> folder. The CLI, MCP server and this page all
+      <p className="text-sm text-muted-foreground">
+        There&apos;s also a Claude skill in the repo&apos;s <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">skill/</code> folder. The CLI, MCP server and this page all
         read the same used-names file, so you can export it here and import it there.
       </p>
     </section>

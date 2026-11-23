@@ -1,19 +1,26 @@
 "use client";
 
 import { nameKey, parseNameList } from "@sep/core";
-import { useMemo, useRef, useState } from "react";
-import { toast } from "sonner";
+import { Search } from "lucide-react";
+import { Fragment, useMemo, useRef, useState } from "react";
 import { DownloadIcon } from "@/components/icons/download";
 import { GithubIcon } from "@/components/icons/github";
-import { SearchIcon } from "@/components/icons/search";
 import { UploadIcon } from "@/components/icons/upload";
 import { XIcon } from "@/components/icons/x";
+import { Count } from "@/components/count";
 import { Button } from "@/components/ui/button";
+import { Empty, EmptyDescription, EmptyHeader } from "@/components/ui/empty";
 import { Input } from "@/components/ui/input";
-import { Sheet, SheetClose, SheetContent, SheetTitle } from "@/components/ui/sheet";
-import { Tabs, TabsList, TabsPanel, TabsTab } from "@/components/ui/tabs";
+import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
+import { Item, ItemActions, ItemContent, ItemDescription, ItemGroup, ItemSeparator, ItemTitle } from "@/components/ui/item";
+import { Separator } from "@/components/ui/separator";
+import { Spinner } from "@/components/ui/spinner";
+import { toast } from "@/components/ui/toast";
+import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAnimatedIcon } from "@/components/ui/animated-icon";
 import { copyText, downloadText } from "@/lib/files";
+import { formatLabel, formatName } from "@/lib/name-format";
 import {
   addUsed,
   exportRegistry,
@@ -26,24 +33,44 @@ import {
 
 export type SheetTab = "shortlist" | "used";
 
-const footerBtn = "h-8 flex-1 rounded-[10px] text-[14px]";
-
 function Row({ name, meta, onRemove, removeLabel }: { name: string; meta?: string; onRemove: () => void; removeLabel: string }) {
   return (
-    <li className="group flex items-center justify-between gap-3 border-b border-border-subtle py-2.5 last:border-b-0">
-      <div className="grid min-w-0 gap-0.5">
-        <span className="type-card truncate">{name}</span>
-        {meta && <span className="type-meta truncate text-muted-foreground">{meta}</span>}
-      </div>
-      <Button variant="ghost" size="icon-sm" aria-label={removeLabel} onClick={onRemove} className="opacity-60 group-hover:opacity-100">
-        <XIcon size={14} />
-      </Button>
-    </li>
+    <Item role="listitem" size="sm" className="px-0">
+      <ItemContent className="min-w-0">
+        <ItemTitle>{name}</ItemTitle>
+        {meta && <ItemDescription className="line-clamp-1">{meta}</ItemDescription>}
+      </ItemContent>
+      <ItemActions>
+        <Button variant="ghost" size="icon-sm" aria-label={removeLabel} onClick={onRemove}>
+          <XIcon />
+        </Button>
+      </ItemActions>
+    </Item>
   );
 }
 
-function Empty({ children }: { children: React.ReactNode }) {
-  return <p className="py-10 text-center text-[13px] text-muted-foreground">{children}</p>;
+/** Rows with a separator between each. */
+function RowList({ children }: { children: React.ReactNode[] }) {
+  return (
+    <ItemGroup className="gap-0">
+      {children.map((row, i) => (
+        <Fragment key={i}>
+          {i > 0 && <ItemSeparator className="my-0" />}
+          {row}
+        </Fragment>
+      ))}
+    </ItemGroup>
+  );
+}
+
+function EmptyList({ children }: { children: React.ReactNode }) {
+  return (
+    <Empty className="py-10">
+      <EmptyHeader>
+        <EmptyDescription>{children}</EmptyDescription>
+      </EmptyHeader>
+    </Empty>
+  );
 }
 
 export function SavedSheet({
@@ -59,7 +86,7 @@ export function SavedSheet({
   onOpenChange: (open: boolean) => void;
   tab: SheetTab;
   onTab: (t: SheetTab) => void;
-  side: "floating" | "bottom";
+  side: "right" | "bottom";
   state: AppState;
   systemName: (id: string) => string;
 }) {
@@ -68,9 +95,9 @@ export function SavedSheet({
   const [owner, setOwner] = useState("");
   const [busy, setBusy] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
-  const gh = useAnimatedIcon(GithubIcon, 14);
-  const up = useAnimatedIcon(UploadIcon, 14);
-  const down = useAnimatedIcon(DownloadIcon, 14);
+  const gh = useAnimatedIcon(GithubIcon);
+  const up = useAnimatedIcon(UploadIcon);
+  const down = useAnimatedIcon(DownloadIcon);
 
   const used = useMemo(() => {
     const q = nameKey(query);
@@ -86,10 +113,10 @@ export function SavedSheet({
     try {
       const names = await fetchGithubRepos(owner.trim());
       const added = addUsed(names.map((n) => ({ name: n, project: n, source: "github" })));
-      toast(`Read ${names.length} repos from ${owner.trim()}, ${added} new.`);
+      toast.add({ title: `Read ${names.length} repos from ${owner.trim()}, ${added} new.` });
       setSyncing(false);
     } catch (err) {
-      toast.error((err as Error).message);
+      toast.add({ type: "error", title: (err as Error).message });
     } finally {
       setBusy(false);
     }
@@ -104,34 +131,34 @@ export function SavedSheet({
       // Not JSON: read it as a list of names (Markdown table, bullets or lines).
       added = addUsed(parseNameList(text).entries.map((e) => ({ name: e.name, source: "import" })));
     }
-    toast(`Imported ${file.name}: ${added} new names.`);
+    toast.add({ title: `Imported ${file.name}: ${added} new names.` });
   }
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side={side}>
-        <Tabs value={tab} onValueChange={(v) => onTab(v as SheetTab)} className="flex min-h-0 flex-1 flex-col">
-          <div className="flex h-12 shrink-0 items-center justify-between border-b px-3">
+      <SheetContent side={side} showCloseButton={false}>
+        <Tabs value={tab} onValueChange={(v) => onTab(v as SheetTab)} className="min-h-0 flex-1 gap-0">
+          <SheetHeader className="shrink-0 flex-row items-center justify-between border-b px-4 py-2">
             <SheetTitle className="sr-only">Saved names</SheetTitle>
-            <TabsList>
-              <TabsTab value="shortlist">
-                Shortlist <span className="text-[11px] text-muted-foreground tabular-nums">{state.shortlist.length}</span>
-              </TabsTab>
-              <TabsTab value="used">
-                Used <span className="text-[11px] text-muted-foreground tabular-nums">{state.used.length}</span>
-              </TabsTab>
+            <TabsList variant="line">
+              <TabsTrigger value="shortlist">
+                Shortlist <Count value={state.shortlist.length} />
+              </TabsTrigger>
+              <TabsTrigger value="used">
+                Used <Count value={state.used.length} />
+              </TabsTrigger>
             </TabsList>
             <SheetClose render={<Button variant="ghost" size="icon-sm" aria-label="Close" />}>
-              <XIcon size={16} />
+              <XIcon />
             </SheetClose>
-          </div>
+          </SheetHeader>
 
-          <TabsPanel value="shortlist" className="flex min-h-0 flex-1 flex-col outline-none">
-            <div className="min-h-0 flex-1 overflow-y-auto px-5 py-2">
+          <TabsContent value="shortlist" className="flex min-h-0 flex-col">
+            <div className="min-h-0 flex-1 overflow-y-auto px-4 py-2">
               {state.shortlist.length === 0 ? (
-                <Empty>Star a name to keep it here while you decide.</Empty>
+                <EmptyList>Star a name to keep it here while you decide.</EmptyList>
               ) : (
-                <ul>
+                <RowList>
                   {state.shortlist.map((s) => (
                     <Row
                       key={s.name}
@@ -141,47 +168,49 @@ export function SavedSheet({
                       onRemove={() => toggleShortlist(s)}
                     />
                   ))}
-                </ul>
+                </RowList>
               )}
             </div>
-            <div className="flex shrink-0 gap-2 border-t bg-muted/50 px-5 py-4">
+            <Separator />
+            <SheetFooter className="shrink-0 flex-row gap-2 bg-muted/50 px-4 py-4">
               <Button
                 variant="outline"
-                className={footerBtn}
+                className="flex-1"
                 disabled={!state.shortlist.length}
                 onClick={async () => {
-                  if (await copyText(state.shortlist.map((s) => s.name).join("\n"))) toast("Copied the shortlist.");
+                  if (await copyText(state.shortlist.map((s) => formatName(s.name, state.nameFormat)).join("\n")))
+                    toast.add({ title: `Copied the shortlist as ${formatLabel(state.nameFormat)}.` });
                 }}
               >
                 Copy all
               </Button>
               <Button
-                className={footerBtn}
+                className="flex-1"
                 disabled={!state.shortlist.length}
                 onClick={() => downloadText("shortlist.json", JSON.stringify(state.shortlist, null, 2) + "\n")}
                 {...down.hover}
               >
                 {down.icon} Export
               </Button>
-            </div>
-          </TabsPanel>
+            </SheetFooter>
+          </TabsContent>
 
-          <TabsPanel value="used" className="flex min-h-0 flex-1 flex-col outline-none">
-            <div className="min-h-0 flex-1 overflow-y-auto px-5 py-3">
-              <div className="relative">
-                <span className="pointer-events-none absolute top-1/2 left-2.5 -translate-y-1/2 text-foreground-faint">
-                  <SearchIcon size={14} />
-                </span>
-                <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search used names" className="pl-8" aria-label="Search used names" />
-              </div>
+          <TabsContent value="used" className="flex min-h-0 flex-col">
+            <div className="min-h-0 flex-1 overflow-y-auto px-4 py-3">
+              <InputGroup>
+                <InputGroupAddon>
+                  <Search />
+                </InputGroupAddon>
+                <InputGroupInput value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search used names" aria-label="Search used names" />
+              </InputGroup>
               {state.used.length === 0 ? (
-                <Empty>
-                  Nothing here yet. Claim a name, sync your GitHub repos, or import the file from the <code className="font-mono">sep</code> CLI.
-                </Empty>
+                <EmptyList>
+                  Nothing here yet. Claim a name, sync your GitHub repos, or import the file from the <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">sep</code> CLI.
+                </EmptyList>
               ) : used.length === 0 ? (
-                <Empty>No used names match that.</Empty>
+                <EmptyList>No used names match that.</EmptyList>
               ) : (
-                <ul className="mt-2">
+                <RowList>
                   {used.map((u) => (
                     <Row
                       key={u.key}
@@ -191,30 +220,32 @@ export function SavedSheet({
                       onRemove={() => removeUsed(u.name)}
                     />
                   ))}
-                </ul>
+                </RowList>
               )}
             </div>
-            <div className="shrink-0 border-t bg-muted/50 px-5 py-4">
+            <Separator />
+            <SheetFooter className="shrink-0 bg-muted/50 px-4 py-4">
               {syncing ? (
                 <form onSubmit={sync} className="flex gap-2">
-                  <Input autoFocus value={owner} onChange={(e) => setOwner(e.target.value)} placeholder="GitHub username" aria-label="GitHub username" className="h-8" />
-                  <Button type="submit" className={footerBtn + " flex-none px-4"} disabled={busy}>
-                    {busy ? "Reading…" : "Sync"}
+                  <Input autoFocus value={owner} onChange={(e) => setOwner(e.target.value)} placeholder="GitHub username" aria-label="GitHub username" />
+                  <Button type="submit" className="px-4" disabled={busy}>
+                    {busy && <Spinner data-icon="inline-start" />}
+                    Sync
                   </Button>
-                  <Button variant="ghost" className="h-8 rounded-[10px]" onClick={() => setSyncing(false)}>
+                  <Button variant="ghost" onClick={() => setSyncing(false)}>
                     Cancel
                   </Button>
                 </form>
               ) : (
                 <div className="flex gap-2">
-                  <Button variant="outline" className={footerBtn} onClick={() => setSyncing(true)} {...gh.hover}>
+                  <Button variant="outline" className="flex-1" onClick={() => setSyncing(true)} {...gh.hover}>
                     {gh.icon} Sync GitHub
                   </Button>
-                  <Button variant="outline" className={footerBtn} onClick={() => fileRef.current?.click()} {...up.hover}>
+                  <Button variant="outline" className="flex-1" onClick={() => fileRef.current?.click()} {...up.hover}>
                     {up.icon} Import
                   </Button>
                   <Button
-                    className={footerBtn}
+                    className="flex-1"
                     disabled={!state.used.length}
                     onClick={() => downloadText("used.json", JSON.stringify(exportRegistry(), null, 2) + "\n")}
                     {...down.hover}
@@ -234,8 +265,8 @@ export function SavedSheet({
                   />
                 </div>
               )}
-            </div>
-          </TabsPanel>
+            </SheetFooter>
+          </TabsContent>
         </Tabs>
       </SheetContent>
     </Sheet>

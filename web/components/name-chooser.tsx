@@ -2,9 +2,9 @@
 
 import { builtinSystems, parseKeywords, suggest, words, type Suggestion } from "@sep/core";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { toast } from "sonner";
 import { Count } from "@/components/count";
 import { Composer, type SourceOption } from "@/components/composer";
+import { FormatMenu } from "@/components/format-menu";
 import { Header } from "@/components/header";
 import { RefreshCWIcon } from "@/components/icons/refresh-cw";
 import { InstallPanels } from "@/components/install-panel";
@@ -13,8 +13,13 @@ import { NameCard } from "@/components/name-card";
 import { SavedSheet, type SheetTab } from "@/components/saved-sheet";
 import { WhyCulture } from "@/components/why-culture";
 import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/toast";
+import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from "@/components/ui/empty";
+import { ItemGroup } from "@/components/ui/item";
+import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useAnimatedIcon } from "@/components/ui/animated-icon";
-import { addUsed, removeUsed, toggleShortlist, useAppState } from "@/lib/store";
+import { addUsed, removeUsed, setNameFormat, toggleShortlist, useAppState } from "@/lib/store";
 import { useMedia } from "@/lib/use-media";
 
 const LABELS: Record<string, string> = {
@@ -36,7 +41,7 @@ export function NameChooser() {
   const [sheetOpen, setSheetOpen] = useState(false);
   const [tab, setTab] = useState<SheetTab>("shortlist");
   const [listOpen, setListOpen] = useState(false);
-  const reroll = useAnimatedIcon(RefreshCWIcon, 14);
+  const reroll = useAnimatedIcon(RefreshCWIcon);
 
   const systems = useMemo(() => [...builtinSystems, ...state.myLists], [state.myLists]);
   const sources: SourceOption[] = systems.map((s) => ({ id: s.id, label: LABELS[s.id] ?? s.name }));
@@ -71,16 +76,30 @@ export function NameChooser() {
   function save(s: Suggestion) {
     const item = { name: s.name, system: s.system, note: s.note };
     const added = toggleShortlist(item);
-    toast(added ? `Added ${s.name} to your shortlist.` : `Removed ${s.name} from your shortlist.`, {
-      action: { label: "Undo", onClick: () => toggleShortlist(item) },
+    const id = toast.add({
+      title: added ? `Added ${s.name} to your shortlist.` : `Removed ${s.name} from your shortlist.`,
+      actionProps: {
+        children: "Undo",
+        onClick: () => {
+          toggleShortlist(item);
+          toast.close(id);
+        },
+      },
     });
   }
 
   function claim(s: Suggestion) {
     addUsed([{ name: s.name, system: s.system, source: "claim" }]);
     setClaimed((c) => new Set(c).add(s.name));
-    toast(`Claimed ${s.name}. It won't be suggested again.`, {
-      action: { label: "Undo", onClick: () => unclaim(s) },
+    const id = toast.add({
+      title: `Claimed ${s.name}. It won't be suggested again.`,
+      actionProps: {
+        children: "Undo",
+        onClick: () => {
+          unclaim(s);
+          toast.close(id);
+        },
+      },
     });
   }
 
@@ -103,45 +122,45 @@ export function NameChooser() {
             keywords={keywords}
             onKeywords={setKeywords}
             sources={sources}
-            selected={selected}
-            onToggle={(id) =>
-              setSelected((cur) => {
-                const n = new Set(cur);
-                if (n.has(id)) n.delete(id);
-                else n.add(id);
-                return n;
-              })
-            }
+            selected={[...selected]}
+            onSelectedChange={(ids) => setSelected(new Set(ids))}
             onSuggest={run}
             onAddList={() => setListOpen(true)}
           />
 
           <section aria-labelledby="results-label" className="grid gap-3">
             <div className="flex items-center justify-between">
-              <h2 id="results-label" className="type-label text-muted-foreground">
+              <h2 id="results-label" className="text-sm font-medium">
                 {results ? `${results.length} unused names` : "Unused names"}
               </h2>
-              <Button
-                variant="ghost"
-                onClick={() => {
-                  reroll.play();
-                  run();
-                }}
-                {...reroll.hover}
-              >
-                {reroll.icon} Reroll
-              </Button>
+              <div className="flex items-center gap-1">
+                <FormatMenu value={state.nameFormat} onChange={setNameFormat} />
+                <Button
+                  variant="ghost"
+                  onClick={() => {
+                    reroll.play();
+                    run();
+                  }}
+                  {...reroll.hover}
+                >
+                  {reroll.icon} Reroll
+                </Button>
+              </div>
             </div>
             {results && results.length === 0 ? (
-              <p className="rounded-lg border px-4 py-8 text-center text-[13px] text-muted-foreground">
-                You&apos;ve used every name in these sources. Pick another source above, or add your own list.
-              </p>
+              <Empty className="border py-8">
+                <EmptyHeader>
+                  <EmptyTitle>No unused names left</EmptyTitle>
+                  <EmptyDescription>You&apos;ve used every name in these sources. Pick another source above, or add your own list.</EmptyDescription>
+                </EmptyHeader>
+              </Empty>
             ) : (
-              <ul className="grid gap-2" aria-live="polite">
+              <ItemGroup aria-live="polite">
                 {(results ?? []).map((s) => (
                   <NameCard
                     key={s.name}
                     s={s}
+                    format={state.nameFormat}
                     systemName={systemName(s.system)}
                     matched={[...new Set(matchedFor(s))]}
                     saved={state.shortlist.some((x) => x.name === s.name)}
@@ -152,8 +171,10 @@ export function NameChooser() {
                   />
                 ))}
                 {results === null &&
-                  Array.from({ length: COUNT }, (_, i) => <li key={i} className="h-[106px] rounded-lg border bg-surface/50" aria-hidden />)}
-              </ul>
+                  Array.from({ length: COUNT }, (_, i) => (
+                    <Skeleton key={i} className="h-[106px] rounded-lg" aria-hidden />
+                  ))}
+              </ItemGroup>
             )}
           </section>
         </div>
@@ -162,22 +183,25 @@ export function NameChooser() {
         <WhyCulture />
       </main>
 
-      <footer className="type-meta flex flex-wrap gap-x-3 gap-y-1 border-t border-border-subtle pt-4 text-foreground-subtle">
-        <span>MIT licence</span>
-        <span>Culture ship names are the work of Iain M. Banks, used here as a fan tribute</span>
-        <a href="https://github.com/mattbx/someone-elses-problem#add-a-system-to-the-project" className="underline-offset-2 hover:text-foreground hover:underline">
-          Add a naming system
-        </a>
+      <footer className="grid gap-4">
+        <Separator />
+        <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs text-muted-foreground">
+          <span>MIT licence</span>
+          <span>Culture ship names are the work of Iain M. Banks, used here as a fan tribute</span>
+          <a href="https://github.com/mattbx/someone-elses-problem#add-a-system-to-the-project" className="underline-offset-2 hover:text-foreground hover:underline">
+            Add a naming system
+          </a>
+        </div>
       </footer>
 
       {!desktop && (
         <button
           type="button"
           onClick={() => open("shortlist")}
-          className="fixed inset-x-0 bottom-0 z-20 flex items-center justify-between border-t bg-surface-elevated px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] text-[12px] text-muted-foreground"
+          className="fixed inset-x-0 bottom-0 z-20 flex items-center justify-between border-t bg-popover px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] text-sm text-muted-foreground"
         >
           <span>
-            Shortlist <Count value={state.shortlist.length} /> <span className="text-foreground-subtle">·</span> Used <Count value={state.used.length} />
+            Shortlist <Count value={state.shortlist.length} /> <span>·</span> Used <Count value={state.used.length} />
           </span>
           <span aria-hidden>▴</span>
         </button>
@@ -188,7 +212,7 @@ export function NameChooser() {
         onOpenChange={setSheetOpen}
         tab={tab}
         onTab={setTab}
-        side={desktop ? "floating" : "bottom"}
+        side={desktop ? "right" : "bottom"}
         state={state}
         systemName={systemName}
       />
