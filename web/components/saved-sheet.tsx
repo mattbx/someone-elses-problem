@@ -20,6 +20,7 @@ import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle }
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAnimatedIcon } from "@/components/ui/animated-icon";
 import { copyText, downloadText } from "@/lib/files";
+import { formatLabel, formatName } from "@/lib/name-format";
 import {
   addUsed,
   exportRegistry,
@@ -177,7 +178,8 @@ export function SavedSheet({
                 className="flex-1"
                 disabled={!state.shortlist.length}
                 onClick={async () => {
-                  if (await copyText(state.shortlist.map((s) => s.name).join("\n"))) toast.add({ title: "Copied the shortlist." });
+                  if (await copyText(state.shortlist.map((s) => formatName(s.name, state.nameFormat)).join("\n")))
+                    toast.add({ title: `Copied the shortlist as ${formatLabel(state.nameFormat)}.` });
                 }}
               >
                 Copy all

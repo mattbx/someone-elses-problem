@@ -4,6 +4,7 @@ import { builtinSystems, parseKeywords, suggest, words, type Suggestion } from "
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Count } from "@/components/count";
 import { Composer, type SourceOption } from "@/components/composer";
+import { FormatMenu } from "@/components/format-menu";
 import { Header } from "@/components/header";
 import { RefreshCWIcon } from "@/components/icons/refresh-cw";
 import { InstallPanels } from "@/components/install-panel";
@@ -18,7 +19,7 @@ import { ItemGroup } from "@/components/ui/item";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAnimatedIcon } from "@/components/ui/animated-icon";
-import { addUsed, removeUsed, toggleShortlist, useAppState } from "@/lib/store";
+import { addUsed, removeUsed, setNameFormat, toggleShortlist, useAppState } from "@/lib/store";
 import { useMedia } from "@/lib/use-media";
 
 const LABELS: Record<string, string> = {
@@ -132,16 +133,19 @@ export function NameChooser() {
               <h2 id="results-label" className="text-sm font-medium">
                 {results ? `${results.length} unused names` : "Unused names"}
               </h2>
-              <Button
-                variant="ghost"
-                onClick={() => {
-                  reroll.play();
-                  run();
-                }}
-                {...reroll.hover}
-              >
-                {reroll.icon} Reroll
-              </Button>
+              <div className="flex items-center gap-1">
+                <FormatMenu value={state.nameFormat} onChange={setNameFormat} />
+                <Button
+                  variant="ghost"
+                  onClick={() => {
+                    reroll.play();
+                    run();
+                  }}
+                  {...reroll.hover}
+                >
+                  {reroll.icon} Reroll
+                </Button>
+              </div>
             </div>
             {results && results.length === 0 ? (
               <Empty className="border py-8">
@@ -156,6 +160,7 @@ export function NameChooser() {
                   <NameCard
                     key={s.name}
                     s={s}
+                    format={state.nameFormat}
                     systemName={systemName(s.system)}
                     matched={[...new Set(matchedFor(s))]}
                     saved={state.shortlist.some((x) => x.name === s.name)}

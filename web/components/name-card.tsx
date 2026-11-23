@@ -5,10 +5,12 @@ import { Star } from "lucide-react";
 import { CopyChip } from "@/components/copy-chip";
 import { Button } from "@/components/ui/button";
 import { Item, ItemActions, ItemContent, ItemDescription, ItemFooter, ItemTitle } from "@/components/ui/item";
+import type { NameFormat } from "@/lib/name-format";
 import { cn } from "@/lib/utils";
 
 export function NameCard({
   s,
+  format,
   systemName,
   matched,
   saved,
@@ -18,6 +20,7 @@ export function NameCard({
   onUnclaim,
 }: {
   s: Suggestion;
+  format: NameFormat;
   systemName: string;
   matched: string[];
   saved: boolean;
@@ -56,10 +59,8 @@ export function NameCard({
           </Button>
         )}
       </ItemActions>
-      <ItemFooter className="flex-wrap justify-start">
-        <CopyChip value={s.formats.slug} />
-        <CopyChip value={s.formats.pascal} />
-        <CopyChip value={s.formats.snake} />
+      <ItemFooter className="justify-start">
+        <CopyChip value={s.formats[format]} />
       </ItemFooter>
     </Item>
   );
