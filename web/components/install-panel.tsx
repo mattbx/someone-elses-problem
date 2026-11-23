@@ -3,39 +3,44 @@
 import { Check, Copy } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { copyText } from "@/lib/files";
 
 function Panel({ label, lines, copy, comment }: { label: string; lines: string[]; copy: string; comment: string }) {
   const [done, setDone] = useState(false);
   return (
-    <div className="min-w-0 overflow-hidden rounded-lg border">
-      <div className="flex items-center justify-between border-b px-3 py-1.5">
-        <span className="type-label text-muted-foreground">{label}</span>
-        <Button
-          variant="ghost"
-          size="icon-sm"
-          aria-label={`Copy ${label} command`}
-          onClick={async () => {
-            if (await copyText(copy)) {
-              setDone(true);
-              setTimeout(() => setDone(false), 1500);
-            }
-          }}
-        >
-          {done ? <Check /> : <Copy />}
-        </Button>
-      </div>
-      <pre className="overflow-x-auto bg-surface px-3 py-3 font-mono text-[13px] leading-relaxed">
-        {lines.map((l, i) => (
-          <span key={i}>
-            {i === 0 && <span className="text-foreground-subtle">$ </span>}
-            {l}
-            {"\n"}
-          </span>
-        ))}
-        <span className="text-foreground-subtle"># {comment}</span>
-      </pre>
-    </div>
+    <Card size="sm" className="min-w-0">
+      <CardHeader className="border-b">
+        <CardTitle>{label}</CardTitle>
+        <CardAction>
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            aria-label={`Copy ${label} command`}
+            onClick={async () => {
+              if (await copyText(copy)) {
+                setDone(true);
+                setTimeout(() => setDone(false), 1500);
+              }
+            }}
+          >
+            {done ? <Check /> : <Copy />}
+          </Button>
+        </CardAction>
+      </CardHeader>
+      <CardContent>
+        <pre className="overflow-x-auto font-mono text-[13px] leading-relaxed">
+          {lines.map((l, i) => (
+            <span key={i}>
+              {i === 0 && <span className="text-foreground-subtle">$ </span>}
+              {l}
+              {"\n"}
+            </span>
+          ))}
+          <span className="text-foreground-subtle"># {comment}</span>
+        </pre>
+      </CardContent>
+    </Card>
   );
 }
 

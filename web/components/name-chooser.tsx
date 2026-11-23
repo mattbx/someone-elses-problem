@@ -2,7 +2,6 @@
 
 import { builtinSystems, parseKeywords, suggest, words, type Suggestion } from "@sep/core";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { toast } from "sonner";
 import { Count } from "@/components/count";
 import { Composer, type SourceOption } from "@/components/composer";
 import { Header } from "@/components/header";
@@ -13,6 +12,7 @@ import { NameCard } from "@/components/name-card";
 import { SavedSheet, type SheetTab } from "@/components/saved-sheet";
 import { WhyCulture } from "@/components/why-culture";
 import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/toast";
 import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from "@/components/ui/empty";
 import { ItemGroup } from "@/components/ui/item";
 import { Separator } from "@/components/ui/separator";
@@ -75,16 +75,30 @@ export function NameChooser() {
   function save(s: Suggestion) {
     const item = { name: s.name, system: s.system, note: s.note };
     const added = toggleShortlist(item);
-    toast(added ? `Added ${s.name} to your shortlist.` : `Removed ${s.name} from your shortlist.`, {
-      action: { label: "Undo", onClick: () => toggleShortlist(item) },
+    const id = toast.add({
+      title: added ? `Added ${s.name} to your shortlist.` : `Removed ${s.name} from your shortlist.`,
+      actionProps: {
+        children: "Undo",
+        onClick: () => {
+          toggleShortlist(item);
+          toast.close(id);
+        },
+      },
     });
   }
 
   function claim(s: Suggestion) {
     addUsed([{ name: s.name, system: s.system, source: "claim" }]);
     setClaimed((c) => new Set(c).add(s.name));
-    toast(`Claimed ${s.name}. It won't be suggested again.`, {
-      action: { label: "Undo", onClick: () => unclaim(s) },
+    const id = toast.add({
+      title: `Claimed ${s.name}. It won't be suggested again.`,
+      actionProps: {
+        children: "Undo",
+        onClick: () => {
+          unclaim(s);
+          toast.close(id);
+        },
+      },
     });
   }
 
@@ -179,7 +193,7 @@ export function NameChooser() {
         <button
           type="button"
           onClick={() => open("shortlist")}
-          className="fixed inset-x-0 bottom-0 z-20 flex items-center justify-between border-t bg-surface-elevated px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] text-[12px] text-muted-foreground"
+          className="fixed inset-x-0 bottom-0 z-20 flex items-center justify-between border-t bg-popover px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] text-[12px] text-muted-foreground"
         >
           <span>
             Shortlist <Count value={state.shortlist.length} /> <span className="text-foreground-subtle">·</span> Used <Count value={state.used.length} />

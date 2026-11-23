@@ -2,12 +2,12 @@
 
 import { nameKey, parseNameList } from "@sep/core";
 import { Fragment, useMemo, useRef, useState } from "react";
-import { toast } from "sonner";
 import { DownloadIcon } from "@/components/icons/download";
 import { GithubIcon } from "@/components/icons/github";
 import { SearchIcon } from "@/components/icons/search";
 import { UploadIcon } from "@/components/icons/upload";
 import { XIcon } from "@/components/icons/x";
+import { Count } from "@/components/count";
 import { Button } from "@/components/ui/button";
 import { Empty, EmptyDescription, EmptyHeader } from "@/components/ui/empty";
 import { Input } from "@/components/ui/input";
@@ -15,6 +15,7 @@ import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/in
 import { Item, ItemActions, ItemContent, ItemDescription, ItemGroup, ItemSeparator, ItemTitle } from "@/components/ui/item";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
+import { toast } from "@/components/ui/toast";
 import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { iconSize, useAnimatedIcon } from "@/components/ui/animated-icon";
@@ -111,10 +112,10 @@ export function SavedSheet({
     try {
       const names = await fetchGithubRepos(owner.trim());
       const added = addUsed(names.map((n) => ({ name: n, project: n, source: "github" })));
-      toast(`Read ${names.length} repos from ${owner.trim()}, ${added} new.`);
+      toast.add({ title: `Read ${names.length} repos from ${owner.trim()}, ${added} new.` });
       setSyncing(false);
     } catch (err) {
-      toast.error((err as Error).message);
+      toast.add({ type: "error", title: (err as Error).message });
     } finally {
       setBusy(false);
     }
@@ -129,21 +130,21 @@ export function SavedSheet({
       // Not JSON: read it as a list of names (Markdown table, bullets or lines).
       added = addUsed(parseNameList(text).entries.map((e) => ({ name: e.name, source: "import" })));
     }
-    toast(`Imported ${file.name}: ${added} new names.`);
+    toast.add({ title: `Imported ${file.name}: ${added} new names.` });
   }
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side={side} showCloseButton={false}>
         <Tabs value={tab} onValueChange={(v) => onTab(v as SheetTab)} className="min-h-0 flex-1 gap-0">
-          <SheetHeader className="h-12 shrink-0 flex-row items-center justify-between border-b px-3 py-0">
+          <SheetHeader className="shrink-0 flex-row items-center justify-between border-b px-4 py-2">
             <SheetTitle className="sr-only">Saved names</SheetTitle>
-            <TabsList className="bg-transparent">
-              <TabsTrigger value="shortlist" className="px-2.5">
-                Shortlist <span className="text-[11px] text-muted-foreground tabular-nums">{state.shortlist.length}</span>
+            <TabsList variant="line">
+              <TabsTrigger value="shortlist">
+                Shortlist <Count value={state.shortlist.length} />
               </TabsTrigger>
-              <TabsTrigger value="used" className="px-2.5">
-                Used <span className="text-[11px] text-muted-foreground tabular-nums">{state.used.length}</span>
+              <TabsTrigger value="used">
+                Used <Count value={state.used.length} />
               </TabsTrigger>
             </TabsList>
             <SheetClose render={<Button variant="ghost" size="icon-sm" aria-label="Close" />}>
@@ -152,7 +153,7 @@ export function SavedSheet({
           </SheetHeader>
 
           <TabsContent value="shortlist" className="flex min-h-0 flex-col">
-            <div className="min-h-0 flex-1 overflow-y-auto px-5 py-2">
+            <div className="min-h-0 flex-1 overflow-y-auto px-4 py-2">
               {state.shortlist.length === 0 ? (
                 <EmptyList>Star a name to keep it here while you decide.</EmptyList>
               ) : (
@@ -170,19 +171,19 @@ export function SavedSheet({
               )}
             </div>
             <Separator />
-            <SheetFooter className="shrink-0 flex-row gap-2 bg-muted/50 px-5 py-4">
+            <SheetFooter className="shrink-0 flex-row gap-2 bg-muted/50 px-4 py-4">
               <Button
                 variant="outline"
-                size="sheet" className="flex-1"
+                className="flex-1"
                 disabled={!state.shortlist.length}
                 onClick={async () => {
-                  if (await copyText(state.shortlist.map((s) => s.name).join("\n"))) toast("Copied the shortlist.");
+                  if (await copyText(state.shortlist.map((s) => s.name).join("\n"))) toast.add({ title: "Copied the shortlist." });
                 }}
               >
                 Copy all
               </Button>
               <Button
-                size="sheet" className="flex-1"
+                className="flex-1"
                 disabled={!state.shortlist.length}
                 onClick={() => downloadText("shortlist.json", JSON.stringify(state.shortlist, null, 2) + "\n")}
                 {...down.hover}
@@ -193,7 +194,7 @@ export function SavedSheet({
           </TabsContent>
 
           <TabsContent value="used" className="flex min-h-0 flex-col">
-            <div className="min-h-0 flex-1 overflow-y-auto px-5 py-3">
+            <div className="min-h-0 flex-1 overflow-y-auto px-4 py-3">
               <InputGroup>
                 <InputGroupAddon>
                   <SearchIcon {...iconSize(14)} />
@@ -221,28 +222,28 @@ export function SavedSheet({
               )}
             </div>
             <Separator />
-            <SheetFooter className="shrink-0 bg-muted/50 px-5 py-4">
+            <SheetFooter className="shrink-0 bg-muted/50 px-4 py-4">
               {syncing ? (
                 <form onSubmit={sync} className="flex gap-2">
                   <Input autoFocus value={owner} onChange={(e) => setOwner(e.target.value)} placeholder="GitHub username" aria-label="GitHub username" />
-                  <Button type="submit" size="sheet" className="px-4" disabled={busy}>
+                  <Button type="submit" className="px-4" disabled={busy}>
                     {busy && <Spinner data-icon="inline-start" />}
                     Sync
                   </Button>
-                  <Button variant="ghost" size="sheet" onClick={() => setSyncing(false)}>
+                  <Button variant="ghost" onClick={() => setSyncing(false)}>
                     Cancel
                   </Button>
                 </form>
               ) : (
                 <div className="flex gap-2">
-                  <Button variant="outline" size="sheet" className="flex-1" onClick={() => setSyncing(true)} {...gh.hover}>
+                  <Button variant="outline" className="flex-1" onClick={() => setSyncing(true)} {...gh.hover}>
                     {gh.icon} Sync GitHub
                   </Button>
-                  <Button variant="outline" size="sheet" className="flex-1" onClick={() => fileRef.current?.click()} {...up.hover}>
+                  <Button variant="outline" className="flex-1" onClick={() => fileRef.current?.click()} {...up.hover}>
                     {up.icon} Import
                   </Button>
                   <Button
-                    size="sheet" className="flex-1"
+                    className="flex-1"
                     disabled={!state.used.length}
                     onClick={() => downloadText("used.json", JSON.stringify(exportRegistry(), null, 2) + "\n")}
                     {...down.hover}

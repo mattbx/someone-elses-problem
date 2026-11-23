@@ -30,9 +30,6 @@ const buttonVariants = cva(
         sm: "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
         // App: pill, matches Toggle size="chip".
         chip: "h-7 gap-1 rounded-full px-3 text-[12px] has-data-[icon=inline-end]:pr-2.5 has-data-[icon=inline-start]:pl-2.5 [&_svg:not([class*='size-'])]:size-3",
-        // App: the larger-type buttons in the saved sheet's footer.
-        sheet:
-          "h-8 gap-1.5 rounded-[10px] px-2.5 text-[14px] has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
         lg: "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
         icon: "size-8",
         "icon-xs":

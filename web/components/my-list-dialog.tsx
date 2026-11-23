@@ -2,10 +2,10 @@
 
 import { parseNameList, words, type NamingSystem } from "@sep/core";
 import { Fragment, useState } from "react";
-import { toast } from "sonner";
 import { FileTextIcon } from "@/components/icons/file-text";
 import { XIcon } from "@/components/icons/x";
 import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/toast";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { iconSize } from "@/components/ui/animated-icon";
 import { Item, ItemActions, ItemContent, ItemDescription, ItemGroup, ItemSeparator, ItemTitle } from "@/components/ui/item";
@@ -28,13 +28,17 @@ export function MyListDialog({
   async function take(file: File) {
     const { entries } = parseNameList(await file.text());
     if (!entries.length) {
-      toast.error(`Couldn't find any names in ${file.name}. Use one name per line, a bullet list, or a table with a Name column.`);
+      toast.add({
+        type: "error",
+        title: `Couldn't find any names in ${file.name}.`,
+        description: "Use one name per line, a bullet list, or a table with a Name column.",
+      });
       return;
     }
     const title = file.name.replace(/\.[^.]+$/, "");
     const id = `my-${words(title).join("-") || "list"}`;
     saveMyList({ id, name: title, description: `Your list, from ${file.name}.`, license: "Your own list", entries });
-    toast(`Added ${entries.length} names from ${file.name}.`);
+    toast.add({ title: `Added ${entries.length} names from ${file.name}.` });
     onAdded(id);
   }
 
