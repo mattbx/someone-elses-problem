@@ -13,6 +13,8 @@ import { NameCard } from "@/components/name-card";
 import { SavedSheet, type SheetTab } from "@/components/saved-sheet";
 import { WhyCulture } from "@/components/why-culture";
 import { Button } from "@/components/ui/button";
+import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from "@/components/ui/empty";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useAnimatedIcon } from "@/components/ui/animated-icon";
 import { addUsed, removeUsed, toggleShortlist, useAppState } from "@/lib/store";
 import { useMedia } from "@/lib/use-media";
@@ -103,15 +105,8 @@ export function NameChooser() {
             keywords={keywords}
             onKeywords={setKeywords}
             sources={sources}
-            selected={selected}
-            onToggle={(id) =>
-              setSelected((cur) => {
-                const n = new Set(cur);
-                if (n.has(id)) n.delete(id);
-                else n.add(id);
-                return n;
-              })
-            }
+            selected={[...selected]}
+            onSelectedChange={(ids) => setSelected(new Set(ids))}
             onSuggest={run}
             onAddList={() => setListOpen(true)}
           />
@@ -133,9 +128,12 @@ export function NameChooser() {
               </Button>
             </div>
             {results && results.length === 0 ? (
-              <p className="rounded-lg border px-4 py-8 text-center text-[13px] text-muted-foreground">
-                You&apos;ve used every name in these sources. Pick another source above, or add your own list.
-              </p>
+              <Empty className="border py-8">
+                <EmptyHeader>
+                  <EmptyTitle>No unused names left</EmptyTitle>
+                  <EmptyDescription>You&apos;ve used every name in these sources. Pick another source above, or add your own list.</EmptyDescription>
+                </EmptyHeader>
+              </Empty>
             ) : (
               <ul className="grid gap-2" aria-live="polite">
                 {(results ?? []).map((s) => (
@@ -152,7 +150,11 @@ export function NameChooser() {
                   />
                 ))}
                 {results === null &&
-                  Array.from({ length: COUNT }, (_, i) => <li key={i} className="h-[106px] rounded-lg border bg-surface/50" aria-hidden />)}
+                  Array.from({ length: COUNT }, (_, i) => (
+                    <li key={i} aria-hidden>
+                      <Skeleton className="h-[106px] rounded-lg" />
+                    </li>
+                  ))}
               </ul>
             )}
           </section>

@@ -9,7 +9,7 @@ export interface IconHandle {
 }
 
 type IconComponent = React.ForwardRefExoticComponent<
-  { size?: number; className?: string; style?: React.CSSProperties } & React.RefAttributes<IconHandle>
+  { size?: number; className?: string; style?: React.CSSProperties; "data-icon"?: string } & React.RefAttributes<IconHandle>
 >;
 
 /**
@@ -26,13 +26,14 @@ export function iconSize(size: number) {
 
 /**
  * Lets a whole button (not just the icon's own box) drive the icon's animation.
- * Spread `hover` onto the button and render `icon`.
+ * Spread `hover` onto the button and render `icon`. `position` sets `data-icon`
+ * so Button tightens its padding on that side.
  */
-export function useAnimatedIcon(Icon: unknown, size = 16) {
+export function useAnimatedIcon(Icon: unknown, size = 16, position: "inline-start" | "inline-end" = "inline-start") {
   const ref = React.useRef<IconHandle>(null);
   const C = Icon as IconComponent;
   return {
-    icon: <C ref={ref} {...iconSize(size)} />,
+    icon: <C ref={ref} data-icon={position} {...iconSize(size)} />,
     hover: {
       onMouseEnter: () => ref.current?.startAnimation(),
       onMouseLeave: () => ref.current?.stopAnimation(),

@@ -54,7 +54,7 @@ export function NameCard({
             aria-label={saved ? `Remove ${s.name} from shortlist` : `Add ${s.name} to shortlist`}
             onClick={onSave}
           >
-            <Star className={cn("size-4", saved && "fill-claim text-claim")} />
+            <Star className={cn(saved && "fill-claim text-claim")} />
           </Button>
           {claimed ? (
             <Button variant="outline" onClick={onUnclaim}>

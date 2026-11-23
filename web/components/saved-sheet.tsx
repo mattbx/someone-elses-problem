@@ -9,7 +9,9 @@ import { SearchIcon } from "@/components/icons/search";
 import { UploadIcon } from "@/components/icons/upload";
 import { XIcon } from "@/components/icons/x";
 import { Button } from "@/components/ui/button";
+import { Empty, EmptyDescription, EmptyHeader } from "@/components/ui/empty";
 import { Input } from "@/components/ui/input";
+import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
 import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { iconSize, useAnimatedIcon } from "@/components/ui/animated-icon";
@@ -26,8 +28,6 @@ import {
 
 export type SheetTab = "shortlist" | "used";
 
-const footerBtn = "h-8 flex-1 rounded-[10px] text-[14px]";
-
 function Row({ name, meta, onRemove, removeLabel }: { name: string; meta?: string; onRemove: () => void; removeLabel: string }) {
   return (
     <li className="group flex items-center justify-between gap-3 border-b border-border-subtle py-2.5 last:border-b-0">
@@ -42,8 +42,14 @@ function Row({ name, meta, onRemove, removeLabel }: { name: string; meta?: strin
   );
 }
 
-function Empty({ children }: { children: React.ReactNode }) {
-  return <p className="py-10 text-center text-[13px] text-muted-foreground">{children}</p>;
+function EmptyList({ children }: { children: React.ReactNode }) {
+  return (
+    <Empty className="py-10">
+      <EmptyHeader>
+        <EmptyDescription>{children}</EmptyDescription>
+      </EmptyHeader>
+    </Empty>
+  );
 }
 
 export function SavedSheet({
@@ -129,7 +135,7 @@ export function SavedSheet({
           <TabsContent value="shortlist" className="flex min-h-0 flex-col">
             <div className="min-h-0 flex-1 overflow-y-auto px-5 py-2">
               {state.shortlist.length === 0 ? (
-                <Empty>Star a name to keep it here while you decide.</Empty>
+                <EmptyList>Star a name to keep it here while you decide.</EmptyList>
               ) : (
                 <ul>
                   {state.shortlist.map((s) => (
@@ -147,7 +153,7 @@ export function SavedSheet({
             <SheetFooter className="shrink-0 flex-row gap-2 border-t bg-muted/50 px-5 py-4">
               <Button
                 variant="outline"
-                className={footerBtn}
+                size="sheet" className="flex-1"
                 disabled={!state.shortlist.length}
                 onClick={async () => {
                   if (await copyText(state.shortlist.map((s) => s.name).join("\n"))) toast("Copied the shortlist.");
@@ -156,7 +162,7 @@ export function SavedSheet({
                 Copy all
               </Button>
               <Button
-                className={footerBtn}
+                size="sheet" className="flex-1"
                 disabled={!state.shortlist.length}
                 onClick={() => downloadText("shortlist.json", JSON.stringify(state.shortlist, null, 2) + "\n")}
                 {...down.hover}
@@ -168,18 +174,18 @@ export function SavedSheet({
 
           <TabsContent value="used" className="flex min-h-0 flex-col">
             <div className="min-h-0 flex-1 overflow-y-auto px-5 py-3">
-              <div className="relative">
-                <span className="pointer-events-none absolute top-1/2 left-2.5 -translate-y-1/2 text-foreground-faint">
+              <InputGroup>
+                <InputGroupAddon>
                   <SearchIcon {...iconSize(14)} />
-                </span>
-                <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search used names" className="pl-8" aria-label="Search used names" />
-              </div>
+                </InputGroupAddon>
+                <InputGroupInput value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search used names" aria-label="Search used names" />
+              </InputGroup>
               {state.used.length === 0 ? (
-                <Empty>
+                <EmptyList>
                   Nothing here yet. Claim a name, sync your GitHub repos, or import the file from the <code className="font-mono">sep</code> CLI.
-                </Empty>
+                </EmptyList>
               ) : used.length === 0 ? (
-                <Empty>No used names match that.</Empty>
+                <EmptyList>No used names match that.</EmptyList>
               ) : (
                 <ul className="mt-2">
                   {used.map((u) => (
@@ -197,24 +203,24 @@ export function SavedSheet({
             <SheetFooter className="shrink-0 border-t bg-muted/50 px-5 py-4">
               {syncing ? (
                 <form onSubmit={sync} className="flex gap-2">
-                  <Input autoFocus value={owner} onChange={(e) => setOwner(e.target.value)} placeholder="GitHub username" aria-label="GitHub username" className="h-8" />
-                  <Button type="submit" className={footerBtn + " flex-none px-4"} disabled={busy}>
+                  <Input autoFocus value={owner} onChange={(e) => setOwner(e.target.value)} placeholder="GitHub username" aria-label="GitHub username" />
+                  <Button type="submit" size="sheet" className="px-4" disabled={busy}>
                     {busy ? "Reading…" : "Sync"}
                   </Button>
-                  <Button variant="ghost" className="h-8 rounded-[10px]" onClick={() => setSyncing(false)}>
+                  <Button variant="ghost" size="sheet" onClick={() => setSyncing(false)}>
                     Cancel
                   </Button>
                 </form>
               ) : (
                 <div className="flex gap-2">
-                  <Button variant="outline" className={footerBtn} onClick={() => setSyncing(true)} {...gh.hover}>
+                  <Button variant="outline" size="sheet" className="flex-1" onClick={() => setSyncing(true)} {...gh.hover}>
                     {gh.icon} Sync GitHub
                   </Button>
-                  <Button variant="outline" className={footerBtn} onClick={() => fileRef.current?.click()} {...up.hover}>
+                  <Button variant="outline" size="sheet" className="flex-1" onClick={() => fileRef.current?.click()} {...up.hover}>
                     {up.icon} Import
                   </Button>
                   <Button
-                    className={footerBtn}
+                    size="sheet" className="flex-1"
                     disabled={!state.used.length}
                     onClick={() => downloadText("used.json", JSON.stringify(exportRegistry(), null, 2) + "\n")}
                     {...down.hover}
