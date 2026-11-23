@@ -4,6 +4,7 @@ import type { Suggestion } from "@sep/core";
 import { Star } from "lucide-react";
 import { CopyChip } from "@/components/copy-chip";
 import { Button } from "@/components/ui/button";
+import { Item, ItemActions, ItemContent, ItemDescription, ItemFooter, ItemTitle } from "@/components/ui/item";
 import { cn } from "@/lib/utils";
 
 export function NameCard({
@@ -26,52 +27,40 @@ export function NameCard({
   onUnclaim: () => void;
 }) {
   return (
-    <li className={cn("grid gap-2.5 rounded-lg border p-4 transition-colors", claimed && "bg-surface")}>
-      <div className="flex items-start justify-between gap-3">
-        <div className="grid min-w-0 gap-1">
-          <h3 className={cn("type-title text-balance", claimed && "text-muted-foreground")}>{s.name}</h3>
-          <p className="type-meta text-muted-foreground">
-            {systemName}
-            {s.note && (
-              <>
-                <span className="text-foreground-subtle"> · </span>
-                {s.note}
-              </>
-            )}
-            {matched.length > 0 && (
-              <>
-                <span className="text-foreground-subtle"> · </span>
-                matched: {matched.join(", ")}
-              </>
-            )}
-          </p>
-        </div>
-        <div className="flex shrink-0 items-center gap-1">
-          <Button
-            variant="ghost"
-            size="icon"
-            aria-pressed={saved}
-            aria-label={saved ? `Remove ${s.name} from shortlist` : `Add ${s.name} to shortlist`}
-            onClick={onSave}
-          >
-            <Star className={cn(saved && "fill-claim text-claim")} />
+    <Item role="listitem" variant={claimed ? "muted" : "outline"}>
+      <ItemContent className="min-w-0">
+        <ItemTitle className={cn(claimed && "text-muted-foreground")}>{s.name}</ItemTitle>
+        <ItemDescription>
+          {systemName}
+          {s.note && <> · {s.note}</>}
+          {matched.length > 0 && <> · matched: {matched.join(", ")}</>}
+        </ItemDescription>
+      </ItemContent>
+      <ItemActions>
+        <Button
+          variant="ghost"
+          size="icon"
+          aria-pressed={saved}
+          aria-label={saved ? `Remove ${s.name} from shortlist` : `Add ${s.name} to shortlist`}
+          onClick={onSave}
+        >
+          <Star className={cn(saved && "fill-claim text-claim")} />
+        </Button>
+        {claimed ? (
+          <Button variant="outline" onClick={onUnclaim}>
+            Claimed · Undo
           </Button>
-          {claimed ? (
-            <Button variant="outline" onClick={onUnclaim}>
-              Claimed · Undo
-            </Button>
-          ) : (
-            <Button variant="claim" onClick={onClaim}>
-              Claim
-            </Button>
-          )}
-        </div>
-      </div>
-      <div className="flex flex-wrap gap-1.5">
+        ) : (
+          <Button variant="claim" onClick={onClaim}>
+            Claim
+          </Button>
+        )}
+      </ItemActions>
+      <ItemFooter className="flex-wrap justify-start">
         <CopyChip value={s.formats.slug} />
         <CopyChip value={s.formats.pascal} />
         <CopyChip value={s.formats.snake} />
-      </div>
-    </li>
+      </ItemFooter>
+    </Item>
   );
 }

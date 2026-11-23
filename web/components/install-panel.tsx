@@ -2,6 +2,7 @@
 
 import { Check, Copy } from "lucide-react";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import { copyText } from "@/lib/files";
 
 function Panel({ label, lines, copy, comment }: { label: string; lines: string[]; copy: string; comment: string }) {
@@ -10,8 +11,9 @@ function Panel({ label, lines, copy, comment }: { label: string; lines: string[]
     <div className="min-w-0 overflow-hidden rounded-lg border">
       <div className="flex items-center justify-between border-b px-3 py-1.5">
         <span className="type-label text-muted-foreground">{label}</span>
-        <button
-          type="button"
+        <Button
+          variant="ghost"
+          size="icon-sm"
           aria-label={`Copy ${label} command`}
           onClick={async () => {
             if (await copyText(copy)) {
@@ -19,10 +21,9 @@ function Panel({ label, lines, copy, comment }: { label: string; lines: string[]
               setTimeout(() => setDone(false), 1500);
             }
           }}
-          className="grid size-7 cursor-pointer place-items-center rounded-md text-muted-foreground transition-colors hover:bg-surface-elevated hover:text-foreground"
         >
-          {done ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}
-        </button>
+          {done ? <Check /> : <Copy />}
+        </Button>
       </div>
       <pre className="overflow-x-auto bg-surface px-3 py-3 font-mono text-[13px] leading-relaxed">
         {lines.map((l, i) => (

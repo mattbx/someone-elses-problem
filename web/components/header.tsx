@@ -26,13 +26,9 @@ export function Header({
             ["MCP", "#use"],
             ["GitHub", REPO],
           ].map(([label, href]) => (
-            <a
-              key={label}
-              href={href}
-              className="type-meta rounded-md border px-2 py-0.5 text-muted-foreground transition-colors hover:bg-surface-elevated hover:text-foreground"
-            >
+            <Button key={label} variant="outline" size="xs" nativeButton={false} render={<a href={href} />}>
               {label}
-            </a>
+            </Button>
           ))}
         </nav>
       </div>

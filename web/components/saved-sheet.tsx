@@ -1,7 +1,7 @@
 "use client";
 
 import { nameKey, parseNameList } from "@sep/core";
-import { useMemo, useRef, useState } from "react";
+import { Fragment, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
 import { DownloadIcon } from "@/components/icons/download";
 import { GithubIcon } from "@/components/icons/github";
@@ -12,6 +12,9 @@ import { Button } from "@/components/ui/button";
 import { Empty, EmptyDescription, EmptyHeader } from "@/components/ui/empty";
 import { Input } from "@/components/ui/input";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
+import { Item, ItemActions, ItemContent, ItemDescription, ItemGroup, ItemSeparator, ItemTitle } from "@/components/ui/item";
+import { Separator } from "@/components/ui/separator";
+import { Spinner } from "@/components/ui/spinner";
 import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { iconSize, useAnimatedIcon } from "@/components/ui/animated-icon";
@@ -30,15 +33,31 @@ export type SheetTab = "shortlist" | "used";
 
 function Row({ name, meta, onRemove, removeLabel }: { name: string; meta?: string; onRemove: () => void; removeLabel: string }) {
   return (
-    <li className="group flex items-center justify-between gap-3 border-b border-border-subtle py-2.5 last:border-b-0">
-      <div className="grid min-w-0 gap-0.5">
-        <span className="type-card truncate">{name}</span>
-        {meta && <span className="type-meta truncate text-muted-foreground">{meta}</span>}
-      </div>
-      <Button variant="ghost" size="icon-sm" aria-label={removeLabel} onClick={onRemove} className="opacity-60 group-hover:opacity-100">
-        <XIcon {...iconSize(14)} />
-      </Button>
-    </li>
+    <Item role="listitem" size="sm" className="px-0">
+      <ItemContent className="min-w-0">
+        <ItemTitle>{name}</ItemTitle>
+        {meta && <ItemDescription className="line-clamp-1">{meta}</ItemDescription>}
+      </ItemContent>
+      <ItemActions>
+        <Button variant="ghost" size="icon-sm" aria-label={removeLabel} onClick={onRemove}>
+          <XIcon {...iconSize(14)} />
+        </Button>
+      </ItemActions>
+    </Item>
+  );
+}
+
+/** Rows with a separator between each. */
+function RowList({ children }: { children: React.ReactNode[] }) {
+  return (
+    <ItemGroup className="gap-0">
+      {children.map((row, i) => (
+        <Fragment key={i}>
+          {i > 0 && <ItemSeparator className="my-0" />}
+          {row}
+        </Fragment>
+      ))}
+    </ItemGroup>
   );
 }
 
@@ -137,7 +156,7 @@ export function SavedSheet({
               {state.shortlist.length === 0 ? (
                 <EmptyList>Star a name to keep it here while you decide.</EmptyList>
               ) : (
-                <ul>
+                <RowList>
                   {state.shortlist.map((s) => (
                     <Row
                       key={s.name}
@@ -147,10 +166,11 @@ export function SavedSheet({
                       onRemove={() => toggleShortlist(s)}
                     />
                   ))}
-                </ul>
+                </RowList>
               )}
             </div>
-            <SheetFooter className="shrink-0 flex-row gap-2 border-t bg-muted/50 px-5 py-4">
+            <Separator />
+            <SheetFooter className="shrink-0 flex-row gap-2 bg-muted/50 px-5 py-4">
               <Button
                 variant="outline"
                 size="sheet" className="flex-1"
@@ -187,7 +207,7 @@ export function SavedSheet({
               ) : used.length === 0 ? (
                 <EmptyList>No used names match that.</EmptyList>
               ) : (
-                <ul className="mt-2">
+                <RowList>
                   {used.map((u) => (
                     <Row
                       key={u.key}
@@ -197,15 +217,17 @@ export function SavedSheet({
                       onRemove={() => removeUsed(u.name)}
                     />
                   ))}
-                </ul>
+                </RowList>
               )}
             </div>
-            <SheetFooter className="shrink-0 border-t bg-muted/50 px-5 py-4">
+            <Separator />
+            <SheetFooter className="shrink-0 bg-muted/50 px-5 py-4">
               {syncing ? (
                 <form onSubmit={sync} className="flex gap-2">
                   <Input autoFocus value={owner} onChange={(e) => setOwner(e.target.value)} placeholder="GitHub username" aria-label="GitHub username" />
                   <Button type="submit" size="sheet" className="px-4" disabled={busy}>
-                    {busy ? "Reading…" : "Sync"}
+                    {busy && <Spinner data-icon="inline-start" />}
+                    Sync
                   </Button>
                   <Button variant="ghost" size="sheet" onClick={() => setSyncing(false)}>
                     Cancel

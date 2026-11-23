@@ -14,6 +14,8 @@ import { SavedSheet, type SheetTab } from "@/components/saved-sheet";
 import { WhyCulture } from "@/components/why-culture";
 import { Button } from "@/components/ui/button";
 import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from "@/components/ui/empty";
+import { ItemGroup } from "@/components/ui/item";
+import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAnimatedIcon } from "@/components/ui/animated-icon";
 import { addUsed, removeUsed, toggleShortlist, useAppState } from "@/lib/store";
@@ -135,7 +137,7 @@ export function NameChooser() {
                 </EmptyHeader>
               </Empty>
             ) : (
-              <ul className="grid gap-2" aria-live="polite">
+              <ItemGroup aria-live="polite">
                 {(results ?? []).map((s) => (
                   <NameCard
                     key={s.name}
@@ -151,11 +153,9 @@ export function NameChooser() {
                 ))}
                 {results === null &&
                   Array.from({ length: COUNT }, (_, i) => (
-                    <li key={i} aria-hidden>
-                      <Skeleton className="h-[106px] rounded-lg" />
-                    </li>
+                    <Skeleton key={i} className="h-[106px] rounded-lg" aria-hidden />
                   ))}
-              </ul>
+              </ItemGroup>
             )}
           </section>
         </div>
@@ -164,12 +164,15 @@ export function NameChooser() {
         <WhyCulture />
       </main>
 
-      <footer className="type-meta flex flex-wrap gap-x-3 gap-y-1 border-t border-border-subtle pt-4 text-foreground-subtle">
-        <span>MIT licence</span>
-        <span>Culture ship names are the work of Iain M. Banks, used here as a fan tribute</span>
-        <a href="https://github.com/mattbx/someone-elses-problem#add-a-system-to-the-project" className="underline-offset-2 hover:text-foreground hover:underline">
-          Add a naming system
-        </a>
+      <footer className="grid gap-4">
+        <Separator />
+        <div className="type-meta flex flex-wrap gap-x-3 gap-y-1 text-foreground-subtle">
+          <span>MIT licence</span>
+          <span>Culture ship names are the work of Iain M. Banks, used here as a fan tribute</span>
+          <a href="https://github.com/mattbx/someone-elses-problem#add-a-system-to-the-project" className="underline-offset-2 hover:text-foreground hover:underline">
+            Add a naming system
+          </a>
+        </div>
       </footer>
 
       {!desktop && (

@@ -1,13 +1,14 @@
 "use client";
 
 import { parseNameList, words, type NamingSystem } from "@sep/core";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { toast } from "sonner";
 import { FileTextIcon } from "@/components/icons/file-text";
 import { XIcon } from "@/components/icons/x";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { iconSize } from "@/components/ui/animated-icon";
+import { Item, ItemActions, ItemContent, ItemDescription, ItemGroup, ItemSeparator, ItemTitle } from "@/components/ui/item";
 import { removeMyList, saveMyList } from "@/lib/store";
 import { cn } from "@/lib/utils";
 
@@ -77,19 +78,24 @@ export function MyListDialog({
         {lists.length > 0 && (
           <div className="grid gap-1">
             <span className="type-label text-muted-foreground">Your lists</span>
-            <ul>
-              {lists.map((l) => (
-                <li key={l.id} className="flex items-center justify-between gap-3 border-b border-border-subtle py-2 last:border-b-0">
-                  <span className="type-card truncate">{l.name}</span>
-                  <span className="flex items-center gap-1">
-                    <span className="text-[11px] text-muted-foreground tabular-nums">{l.entries?.length ?? 0} names</span>
-                    <Button variant="ghost" size="icon-sm" aria-label={`Remove ${l.name}`} onClick={() => removeMyList(l.id)}>
-                      <XIcon {...iconSize(14)} />
-                    </Button>
-                  </span>
-                </li>
+            <ItemGroup className="gap-0">
+              {lists.map((l, i) => (
+                <Fragment key={l.id}>
+                  {i > 0 && <ItemSeparator className="my-0" />}
+                  <Item role="listitem" size="sm" className="px-0">
+                    <ItemContent className="min-w-0">
+                      <ItemTitle>{l.name}</ItemTitle>
+                      <ItemDescription>{l.entries?.length ?? 0} names</ItemDescription>
+                    </ItemContent>
+                    <ItemActions>
+                      <Button variant="ghost" size="icon-sm" aria-label={`Remove ${l.name}`} onClick={() => removeMyList(l.id)}>
+                        <XIcon {...iconSize(14)} />
+                      </Button>
+                    </ItemActions>
+                  </Item>
+                </Fragment>
               ))}
-            </ul>
+            </ItemGroup>
           </div>
         )}
         <DialogFooter>
