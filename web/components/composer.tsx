@@ -78,11 +78,12 @@ export function Composer({
             <Input
               id="keywords"
               value={keywords}
+              className="h-9"
               onChange={(e) => onKeywords(e.target.value)}
               placeholder="small audio plugin, experimental"
               autoComplete="off"
             />
-            <Button type="submit" {...sparkle.hover}>
+            <Button size="lg" type="submit" {...sparkle.hover}>
               {sparkle.icon}
               Suggest
             </Button>
