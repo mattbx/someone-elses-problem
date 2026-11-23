@@ -18,6 +18,7 @@ import { toast } from "@/components/ui/toast";
 import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from "@/components/ui/empty";
 import { ItemGroup } from "@/components/ui/item";
 import { Separator } from "@/components/ui/separator";
+import { Starfield } from "@/components/ui/starfield";
 import { useAnimatedIcon } from "@/components/ui/animated-icon";
 import { addUsed, removeUsed, setNameFormat, toggleShortlist, useAppState } from "@/lib/store";
 import { useMedia } from "@/lib/use-media";
@@ -117,6 +118,21 @@ export function NameChooser() {
 
   return (
     <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 pt-8 pb-24 sm:pb-16">
+      {/* Full-width sky behind the top of the page; scrolls away with it. */}
+      <Starfield
+        aria-hidden
+        className="absolute inset-x-0 top-0 -z-10 min-h-[32rem]"
+        density={2.6}
+        fade="bottom"
+        glow={0}
+        haze={0.35}
+        hazeColors={["#19b8d8", "#2f6bff"]}
+        intensity={1.4}
+        opacity={0.77}
+        size={0.6}
+        speed={0.65}
+        twinkle={0.72}
+      />
       <Header shortlist={state.shortlist.length} used={state.used.length} onOpen={open} />
 
       <main className="grid gap-10">
