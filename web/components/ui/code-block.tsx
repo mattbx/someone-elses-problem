@@ -275,7 +275,7 @@ function CodeBlock({
   return (
     <div
       data-slot='code-block'
-      className={cn('cn-code-block bg-muted/50 border-border overflow-hidden rounded-xl border text-sm', className)}
+      className={cn('cn-code-block bg-surface/50 border-border overflow-hidden rounded-xl border text-sm', className)}
       {...props}
     >
       {/* Header */}

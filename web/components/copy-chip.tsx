@@ -11,7 +11,7 @@ export function CopyChip({ value, label, className }: { value: string; label?: s
   return (
     <Button
       variant="outline"
-      size="xs"
+      size="sm"
       title={`Copy ${value}`}
       onClick={async () => {
         if (await copyText(value)) {
@@ -21,8 +21,8 @@ export function CopyChip({ value, label, className }: { value: string; label?: s
       }}
       className={className}
     >
-      <span className="truncate font-mono">{label ?? value}</span>
-      {done ? <Check data-icon="inline-end" /> : <Copy data-icon="inline-end" />}
+      <span className="truncate font-mono bg-surface/50 text-muted-foreground pr-1">{label ?? value}</span>
+      {done ? <Check data-icon="inline-end" className="text-muted-foreground" /> : <Copy data-icon="inline-end" className="text-muted-foreground" />}
     </Button>
   );
 }
