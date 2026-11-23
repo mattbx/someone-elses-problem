@@ -7,9 +7,9 @@ import type { NamingSystem, Registry, UsedName } from "./types.js";
 
 export * from "./index.js";
 
-/** ~/.config/naming-things, or $NTIH_HOME. */
+/** ~/.config/someone-elses-problem, or $SEP_HOME. */
 export function configDir(): string {
-  return process.env.NTIH_HOME ?? join(process.env.XDG_CONFIG_HOME ?? join(homedir(), ".config"), "naming-things");
+  return process.env.SEP_HOME ?? join(process.env.XDG_CONFIG_HOME ?? join(homedir(), ".config"), "someone-elses-problem");
 }
 
 export function globalRegistryPath(): string {
@@ -74,7 +74,7 @@ export function customSystemsDir(): string {
   return join(configDir(), "systems");
 }
 
-/** Built-in systems plus any JSON systems in ~/.config/naming-things/systems/. */
+/** Built-in systems plus any JSON systems in ~/.config/someone-elses-problem/systems/. */
 export function loadSystems(): NamingSystem[] {
   const dir = customSystemsDir();
   const custom: NamingSystem[] = [];
@@ -84,7 +84,7 @@ export function loadSystems(): NamingSystem[] {
         const s = JSON.parse(readFileSync(join(dir, f), "utf8")) as NamingSystem;
         if (s.id && Array.isArray(s.entries)) custom.push(s);
       } catch {
-        process.stderr.write(`ntih: skipped ${f}, not valid JSON\n`);
+        process.stderr.write(`sep: skipped ${f}, not valid JSON\n`);
       }
     }
   }
@@ -101,7 +101,7 @@ export function saveCustomSystem(system: NamingSystem): string {
 
 /** Public repo names for a GitHub user or org. Uses $GITHUB_TOKEN if set (needed for private repos). */
 export async function fetchGithubRepos(owner: string): Promise<string[]> {
-  const headers: Record<string, string> = { Accept: "application/vnd.github+json", "User-Agent": "naming-things-is-hard" };
+  const headers: Record<string, string> = { Accept: "application/vnd.github+json", "User-Agent": "someone-elses-problem" };
   if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
   const names: string[] = [];
   for (let page = 1; page < 50; page++) {

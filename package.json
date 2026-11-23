@@ -1,10 +1,10 @@
 {
-  "name": "naming-things-is-hard",
+  "name": "someone-elses-problem",
   "version": "0.1.0",
   "description": "Suggests working-title names you haven't used yet, from pluggable naming systems (Culture-style ship names and friends). CLI, MCP server and Claude skill.",
   "type": "module",
   "license": "MIT",
-  "bin": { "ntih": "dist/cli.js" },
+  "bin": { "sep": "dist/cli.js" },
   "exports": {
     ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
     "./node": { "types": "./dist/node.d.ts", "default": "./dist/node.js" }

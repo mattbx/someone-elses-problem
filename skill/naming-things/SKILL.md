@@ -11,9 +11,9 @@ Help the user pick a working title that fits the project and that they haven't u
 
 Use the first of these that works:
 
-1. **MCP tools** (`suggest_names`, `claim_name`, `list_used`, `list_systems`) if the naming-things-is-hard MCP server is connected.
-2. **CLI**: `npx -y naming-things-is-hard suggest <keywords> -n 20 --json` (add `-s <system-id>` to pick a system; `ntih systems` lists them).
-3. **No tools available**: use the fallback list at the end of this file, and check `~/.config/naming-things/used.json` and the project's `.names.json` (if you can read files) for names already used.
+1. **MCP tools** (`suggest_names`, `claim_name`, `list_used`, `list_systems`) if the someone-elses-problem MCP server is connected.
+2. **CLI**: `npx -y someone-elses-problem suggest <keywords> -n 20 --json` (add `-s <system-id>` to pick a system; `sep systems` lists them).
+3. **No tools available**: use the fallback list at the end of this file, and check `~/.config/someone-elses-problem/used.json` and the project's `.names.json` (if you can read files) for names already used.
 
 Pass keywords that describe the project: what it does, its size, its mood ("small audio plugin, experimental"). Ask for about 20 candidates.
 
@@ -28,7 +28,7 @@ If the user named a system ("give me a Culture ship name"), stay inside it. Othe
 
 ## 3. Claim the pick
 
-When the user picks one, record it so it isn't suggested again: call `claim_name` with the name and what it's for, or run `npx -y naming-things-is-hard claim "<name>" --project <what>`. If neither is available, tell the user to add it to their used list.
+When the user picks one, record it so it isn't suggested again: call `claim_name` with the name and what it's for, or run `npx -y someone-elses-problem claim "<name>" --project <what>`. If neither is available, tell the user to add it to their used list.
 
 ## Fallback list (Culture-style, original)
 

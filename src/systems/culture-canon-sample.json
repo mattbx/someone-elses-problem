@@ -1,7 +1,7 @@
 {
  "id": "culture-canon-sample",
  "name": "Culture ships (canon sample)",
- "description": "A small sample of real ship names from Iain M. Banks' Culture novels, as a nod and a style reference. Load your own full list with `ntih import`.",
+ "description": "A small sample of real ship names from Iain M. Banks' Culture novels, as a nod and a style reference. Load your own full list with `sep import`.",
  "license": "Names are the creative work of Iain M. Banks; listed here as a short fan reference, unaffiliated with the Banks estate.",
  "attribution": "Iain M. Banks, the Culture novels (1987 to 2012).",
  "source": "https://en.wikipedia.org/wiki/The_Culture",

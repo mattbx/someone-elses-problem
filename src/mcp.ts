@@ -6,7 +6,7 @@ import { addUsed, globalRegistryPath, loadSystems, loadUsed, record, suggest } f
 const text = (data: unknown) => ({ content: [{ type: "text" as const, text: typeof data === "string" ? data : JSON.stringify(data, null, 2) }] });
 
 export function createMcpServer(): McpServer {
-  const server = new McpServer({ name: "naming-things-is-hard", version: "0.1.0" });
+  const server = new McpServer({ name: "someone-elses-problem", version: "0.1.0" });
 
   server.registerTool(
     "list_systems",

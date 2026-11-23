@@ -6,8 +6,8 @@ import { addUsed, globalRegistryPath, loadSystems, loadUsed, readRegistry, recor
 
 let home: string;
 beforeEach(() => {
-  home = mkdtempSync(join(tmpdir(), "ntih-"));
-  process.env.NTIH_HOME = home;
+  home = mkdtempSync(join(tmpdir(), "sep-"));
+  process.env.SEP_HOME = home;
 });
 
 describe("registry", () => {

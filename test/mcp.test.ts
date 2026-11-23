@@ -8,7 +8,7 @@ import { createMcpServer } from "../src/mcp.js";
 
 describe("MCP server", () => {
   it("suggests, claims, and stops suggesting the claimed name", async () => {
-    process.env.NTIH_HOME = mkdtempSync(join(tmpdir(), "ntih-mcp-"));
+    process.env.SEP_HOME = mkdtempSync(join(tmpdir(), "sep-mcp-"));
     const [a, b] = InMemoryTransport.createLinkedPair();
     await createMcpServer().connect(a);
     const client = new Client({ name: "test", version: "0" });

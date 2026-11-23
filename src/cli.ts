@@ -23,27 +23,27 @@ const tty = process.stdout.isTTY && !process.env.NO_COLOR;
 const dim = (s: string) => (tty ? `\x1b[2m${s}\x1b[0m` : s);
 const bold = (s: string) => (tty ? `\x1b[1m${s}\x1b[0m` : s);
 
-const HELP = `ntih ${VERSION}: naming things is hard
+const HELP = `sep ${VERSION}: Someone Else's Problem, naming things so you don't have to
 
 Usage
-  ntih [suggest] [keywords...]      Suggest names you haven't used yet
+  sep [suggest] [keywords...]      Suggest names you haven't used yet
       -s, --system <id>             Only these systems (repeat, or comma-separate)
       -n, --count <n>               How many (default 5)
           --seed <text>             Same seed, same names
           --json                    Machine-readable output
-  ntih claim <name>                 Mark a name as used
+  sep claim <name>                 Mark a name as used
       -p, --project <what>          What it's used for
           --local                   Write to ./.names.json instead of your global registry
-  ntih unclaim <name> [--local]     Free a name again
-  ntih used [--json]                List used names
-  ntih systems [--json]             List naming systems
-  ntih sync --github <owner>        Treat a GitHub user's repo names as used ($GITHUB_TOKEN optional)
-  ntih sync --dir <path>            Treat folder names in <path> as used, e.g. ~/Github
-  ntih import <file> --used         Add every name in a file to your used registry
-  ntih import <file> --as <id>      Save a file of names as your own naming system
+  sep unclaim <name> [--local]     Free a name again
+  sep used [--json]                List used names
+  sep systems [--json]             List naming systems
+  sep sync --github <owner>        Treat a GitHub user's repo names as used ($GITHUB_TOKEN optional)
+  sep sync --dir <path>            Treat folder names in <path> as used, e.g. ~/Github
+  sep import <file> --used         Add every name in a file to your used registry
+  sep import <file> --as <id>      Save a file of names as your own naming system
           --name <title>            Display name for that system
-  ntih mcp                          Run as an MCP server over stdio
-  ntih help | --version
+  sep mcp                          Run as an MCP server over stdio
+  sep help | --version
 
 Registry: ${globalRegistryPath()}
 `;
@@ -92,12 +92,12 @@ async function main(argv: string[]) {
         console.log(`${bold(s.name)}  ${dim(`${s.system} · ${s.formats.slug}`)}`);
         if (s.note) console.log(`  ${dim(s.note)}`);
       }
-      console.log(dim(`\nClaim one with: ntih claim "${out[0].name}" --project <what>`));
+      console.log(dim(`\nClaim one with: sep claim "${out[0].name}" --project <what>`));
       return;
     }
     case "claim": {
       const name = positionals.join(" ").trim();
-      if (!name) throw new Error('Give a name: ntih claim "Mild Concern Noted"');
+      if (!name) throw new Error('Give a name: sep claim "Mild Concern Noted"');
       const system = loadSystems().find((s) => s.entries?.some((e) => e.name.toLowerCase() === name.toLowerCase()))?.id;
       const fresh = addUsed(regPath, [record(name, { project: o.project, system, source: "claim" })]);
       console.log(fresh.length ? `Claimed "${name}"${o.project ? ` for ${o.project}` : ""}.` : `"${name}" was already claimed.`);
@@ -142,7 +142,7 @@ async function main(argv: string[]) {
     }
     case "import": {
       const file = positionals[0];
-      if (!file) throw new Error("Give a file: ntih import names.md --used");
+      if (!file) throw new Error("Give a file: sep import names.md --used");
       const { entries } = parseNameList(readFileSync(file, "utf8"));
       if (!entries.length) throw new Error(`Found no names in ${file}.`);
       if (o.used) {
@@ -157,7 +157,7 @@ async function main(argv: string[]) {
         license: "Private list, not redistributed",
         entries,
       });
-      console.log(`Saved ${entries.length} names as system "${id}" (${path}).\nTry: ntih -s ${id}`);
+      console.log(`Saved ${entries.length} names as system "${id}" (${path}).\nTry: sep -s ${id}`);
       return;
     }
     case "mcp": {
@@ -169,6 +169,6 @@ async function main(argv: string[]) {
 }
 
 main(process.argv.slice(2)).catch((e: Error) => {
-  console.error(`ntih: ${e.message}`);
+  console.error(`sep: ${e.message}`);
   process.exit(1);
 });
