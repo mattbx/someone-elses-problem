@@ -1,16 +1,16 @@
 "use client";
 
 import { parseNameList, words, type NamingSystem } from "@sep/core";
-import { Fragment, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import { FileTextIcon } from "@/components/icons/file-text";
 import { XIcon } from "@/components/icons/x";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/toast";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { iconSize } from "@/components/ui/animated-icon";
+import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
 import { Item, ItemActions, ItemContent, ItemDescription, ItemGroup, ItemSeparator, ItemTitle } from "@/components/ui/item";
 import { removeMyList, saveMyList } from "@/lib/store";
-import { cn } from "@/lib/utils";
 
 export function MyListDialog({
   open,
@@ -24,6 +24,7 @@ export function MyListDialog({
   onAdded: (id: string) => void;
 }) {
   const [over, setOver] = useState(false);
+  const fileRef = useRef<HTMLInputElement>(null);
 
   async function take(file: File) {
     const { entries } = parseNameList(await file.text());
@@ -49,7 +50,8 @@ export function MyListDialog({
           <DialogTitle>Bring your own list</DialogTitle>
           <DialogDescription>Names stay in this browser. Markdown tables, bullet lists and plain lines all work.</DialogDescription>
         </DialogHeader>
-        <label
+        <Empty
+          data-dragging={over || undefined}
           onDragOver={(e) => {
             e.preventDefault();
             setOver(true);
@@ -61,27 +63,35 @@ export function MyListDialog({
             const f = e.dataTransfer.files[0];
             if (f) take(f);
           }}
-          className={cn(
-            "grid cursor-pointer place-items-center gap-2 rounded-lg border border-dashed bg-surface px-4 py-8 text-center transition-colors hover:border-ring",
-            over && "border-ring bg-surface-elevated",
-          )}
+          className="border data-dragging:border-ring data-dragging:bg-muted/50"
         >
-          <FileTextIcon size={20} className="text-muted-foreground" />
-          <span className="text-[13px] text-foreground-secondary">Drop a .md, .txt or .csv file, or click to choose one</span>
-          <input
-            type="file"
-            accept=".md,.txt,.csv"
-            className="sr-only"
-            onChange={(e) => {
-              const f = e.target.files?.[0];
-              if (f) take(f);
-              e.target.value = "";
-            }}
-          />
-        </label>
+          <EmptyHeader>
+            <EmptyMedia variant="icon">
+              <FileTextIcon {...iconSize(16)} />
+            </EmptyMedia>
+            <EmptyTitle>Drop a file here</EmptyTitle>
+            <EmptyDescription>Or choose a .md, .txt or .csv file.</EmptyDescription>
+          </EmptyHeader>
+          <EmptyContent>
+            <Button variant="outline" size="sm" onClick={() => fileRef.current?.click()}>
+              Choose a file
+            </Button>
+            <input
+              ref={fileRef}
+              type="file"
+              accept=".md,.txt,.csv"
+              className="hidden"
+              onChange={(e) => {
+                const f = e.target.files?.[0];
+                if (f) take(f);
+                e.target.value = "";
+              }}
+            />
+          </EmptyContent>
+        </Empty>
         {lists.length > 0 && (
           <div className="grid gap-1">
-            <span className="type-label text-muted-foreground">Your lists</span>
+            <h3 className="text-sm font-medium">Your lists</h3>
             <ItemGroup className="gap-0">
               {lists.map((l, i) => (
                 <Fragment key={l.id}>

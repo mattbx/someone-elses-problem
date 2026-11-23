@@ -129,7 +129,7 @@ export function NameChooser() {
 
           <section aria-labelledby="results-label" className="grid gap-3">
             <div className="flex items-center justify-between">
-              <h2 id="results-label" className="type-label text-muted-foreground">
+              <h2 id="results-label" className="text-sm font-medium">
                 {results ? `${results.length} unused names` : "Unused names"}
               </h2>
               <Button

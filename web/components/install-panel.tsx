@@ -47,7 +47,7 @@ function Panel({ label, lines, copy, comment }: { label: string; lines: string[]
 export function InstallPanels() {
   return (
     <section id="use" aria-labelledby="use-label" className="grid scroll-mt-24 gap-3">
-      <h2 id="use-label" className="type-label text-muted-foreground">
+      <h2 id="use-label" className="text-sm font-medium">
         Use it where you work
       </h2>
       <div className="grid gap-3 md:grid-cols-2">

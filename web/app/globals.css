@@ -175,7 +175,6 @@
 
 /* ---------- Type scale (their custom utilities, verbatim values) ----------
    Usage seen on the site:
-   - type-label   section eyebrows ("INSTALL", "REGISTRY ITEMS")   -> "WHAT ARE YOU NAMING?"
    - type-meta    mono metadata, counts, paths                     -> "culture-style · matched: audio"
    - type-card    card titles, 14px semibold                       -> shortlist / used rows
    - type-title   page/item titles, 18px semibold                  -> ship name on a card
@@ -183,14 +182,6 @@
    Also seen: body copy at text-[13px] text-foreground-secondary, buttons at 12px/500,
    counts at 11px text-muted-foreground tabular-nums.
 */
-@utility type-label {
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.625rem;
-  line-height: 1.4;
-}
-
 @utility type-meta {
   font-family: var(--font-mono);
   font-size: 0.6875rem;

@@ -1,7 +1,7 @@
 export function WhyCulture() {
   return (
     <section aria-labelledby="why-label" className="grid max-w-[65ch] gap-3">
-      <h2 id="why-label" className="type-label text-muted-foreground">
+      <h2 id="why-label" className="text-sm font-medium">
         Why the Culture
       </h2>
       <div className="grid gap-3 text-[13px] leading-relaxed text-foreground-secondary">
