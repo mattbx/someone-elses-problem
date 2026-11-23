@@ -61,7 +61,7 @@ export function NameCard({
               Claimed · Undo
             </Button>
           ) : (
-            <Button variant="accent" onClick={onClaim}>
+            <Button variant="claim" onClick={onClaim}>
               Claim
             </Button>
           )}

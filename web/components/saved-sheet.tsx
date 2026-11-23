@@ -10,9 +10,9 @@ import { UploadIcon } from "@/components/icons/upload";
 import { XIcon } from "@/components/icons/x";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Sheet, SheetClose, SheetContent, SheetTitle } from "@/components/ui/sheet";
-import { Tabs, TabsList, TabsPanel, TabsTab } from "@/components/ui/tabs";
-import { useAnimatedIcon } from "@/components/ui/animated-icon";
+import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { iconSize, useAnimatedIcon } from "@/components/ui/animated-icon";
 import { copyText, downloadText } from "@/lib/files";
 import {
   addUsed,
@@ -36,7 +36,7 @@ function Row({ name, meta, onRemove, removeLabel }: { name: string; meta?: strin
         {meta && <span className="type-meta truncate text-muted-foreground">{meta}</span>}
       </div>
       <Button variant="ghost" size="icon-sm" aria-label={removeLabel} onClick={onRemove} className="opacity-60 group-hover:opacity-100">
-        <XIcon size={14} />
+        <XIcon {...iconSize(14)} />
       </Button>
     </li>
   );
@@ -109,24 +109,24 @@ export function SavedSheet({
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side={side}>
-        <Tabs value={tab} onValueChange={(v) => onTab(v as SheetTab)} className="flex min-h-0 flex-1 flex-col">
-          <div className="flex h-12 shrink-0 items-center justify-between border-b px-3">
+      <SheetContent side={side} showCloseButton={false}>
+        <Tabs value={tab} onValueChange={(v) => onTab(v as SheetTab)} className="min-h-0 flex-1 gap-0">
+          <SheetHeader className="h-12 shrink-0 flex-row items-center justify-between border-b px-3 py-0">
             <SheetTitle className="sr-only">Saved names</SheetTitle>
-            <TabsList>
-              <TabsTab value="shortlist">
+            <TabsList className="bg-transparent">
+              <TabsTrigger value="shortlist" className="px-2.5">
                 Shortlist <span className="text-[11px] text-muted-foreground tabular-nums">{state.shortlist.length}</span>
-              </TabsTab>
-              <TabsTab value="used">
+              </TabsTrigger>
+              <TabsTrigger value="used" className="px-2.5">
                 Used <span className="text-[11px] text-muted-foreground tabular-nums">{state.used.length}</span>
-              </TabsTab>
+              </TabsTrigger>
             </TabsList>
             <SheetClose render={<Button variant="ghost" size="icon-sm" aria-label="Close" />}>
-              <XIcon size={16} />
+              <XIcon {...iconSize(16)} />
             </SheetClose>
-          </div>
+          </SheetHeader>
 
-          <TabsPanel value="shortlist" className="flex min-h-0 flex-1 flex-col outline-none">
+          <TabsContent value="shortlist" className="flex min-h-0 flex-col">
             <div className="min-h-0 flex-1 overflow-y-auto px-5 py-2">
               {state.shortlist.length === 0 ? (
                 <Empty>Star a name to keep it here while you decide.</Empty>
@@ -144,7 +144,7 @@ export function SavedSheet({
                 </ul>
               )}
             </div>
-            <div className="flex shrink-0 gap-2 border-t bg-muted/50 px-5 py-4">
+            <SheetFooter className="shrink-0 flex-row gap-2 border-t bg-muted/50 px-5 py-4">
               <Button
                 variant="outline"
                 className={footerBtn}
@@ -163,14 +163,14 @@ export function SavedSheet({
               >
                 {down.icon} Export
               </Button>
-            </div>
-          </TabsPanel>
+            </SheetFooter>
+          </TabsContent>
 
-          <TabsPanel value="used" className="flex min-h-0 flex-1 flex-col outline-none">
+          <TabsContent value="used" className="flex min-h-0 flex-col">
             <div className="min-h-0 flex-1 overflow-y-auto px-5 py-3">
               <div className="relative">
                 <span className="pointer-events-none absolute top-1/2 left-2.5 -translate-y-1/2 text-foreground-faint">
-                  <SearchIcon size={14} />
+                  <SearchIcon {...iconSize(14)} />
                 </span>
                 <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search used names" className="pl-8" aria-label="Search used names" />
               </div>
@@ -194,7 +194,7 @@ export function SavedSheet({
                 </ul>
               )}
             </div>
-            <div className="shrink-0 border-t bg-muted/50 px-5 py-4">
+            <SheetFooter className="shrink-0 border-t bg-muted/50 px-5 py-4">
               {syncing ? (
                 <form onSubmit={sync} className="flex gap-2">
                   <Input autoFocus value={owner} onChange={(e) => setOwner(e.target.value)} placeholder="GitHub username" aria-label="GitHub username" className="h-8" />
@@ -234,8 +234,8 @@ export function SavedSheet({
                   />
                 </div>
               )}
-            </div>
-          </TabsPanel>
+            </SheetFooter>
+          </TabsContent>
         </Tabs>
       </SheetContent>
     </Sheet>

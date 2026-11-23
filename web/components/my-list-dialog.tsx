@@ -6,7 +6,8 @@ import { toast } from "sonner";
 import { FileTextIcon } from "@/components/icons/file-text";
 import { XIcon } from "@/components/icons/x";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { iconSize } from "@/components/ui/animated-icon";
 import { removeMyList, saveMyList } from "@/lib/store";
 import { cn } from "@/lib/utils";
 
@@ -38,11 +39,11 @@ export function MyListDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
-        <div className="grid gap-1">
+      <DialogContent showCloseButton={false} className="sm:max-w-md">
+        <DialogHeader>
           <DialogTitle>Bring your own list</DialogTitle>
           <DialogDescription>Names stay in this browser. Markdown tables, bullet lists and plain lines all work.</DialogDescription>
-        </div>
+        </DialogHeader>
         <label
           onDragOver={(e) => {
             e.preventDefault();
@@ -83,7 +84,7 @@ export function MyListDialog({
                   <span className="flex items-center gap-1">
                     <span className="text-[11px] text-muted-foreground tabular-nums">{l.entries?.length ?? 0} names</span>
                     <Button variant="ghost" size="icon-sm" aria-label={`Remove ${l.name}`} onClick={() => removeMyList(l.id)}>
-                      <XIcon size={14} />
+                      <XIcon {...iconSize(14)} />
                     </Button>
                   </span>
                 </li>
@@ -91,9 +92,9 @@ export function MyListDialog({
             </ul>
           </div>
         )}
-        <div className="flex justify-end">
+        <DialogFooter>
           <DialogClose render={<Button variant="outline" />}>Done</DialogClose>
-        </div>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
