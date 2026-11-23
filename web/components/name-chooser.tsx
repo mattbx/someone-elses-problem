@@ -9,7 +9,8 @@ import { Header } from "@/components/header";
 import { RefreshCWIcon } from "@/components/icons/refresh-cw";
 import { InstallPanels } from "@/components/install-panel";
 import { MyListDialog } from "@/components/my-list-dialog";
-import { NameCard } from "@/components/name-card";
+import { NameCard, NameCardSkeleton } from "@/components/name-card";
+import { RevealList, RevealOnScroll } from "@/components/reveal";
 import { SavedSheet, type SheetTab } from "@/components/saved-sheet";
 import { WhyCulture } from "@/components/why-culture";
 import { Button } from "@/components/ui/button";
@@ -17,7 +18,6 @@ import { toast } from "@/components/ui/toast";
 import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from "@/components/ui/empty";
 import { ItemGroup } from "@/components/ui/item";
 import { Separator } from "@/components/ui/separator";
-import { Skeleton } from "@/components/ui/skeleton";
 import { useAnimatedIcon } from "@/components/ui/animated-icon";
 import { addUsed, removeUsed, setNameFormat, toggleShortlist, useAppState } from "@/lib/store";
 import { useMedia } from "@/lib/use-media";
@@ -38,6 +38,8 @@ export function NameChooser() {
   const [selected, setSelected] = useState(() => new Set(DEFAULT_SOURCES));
   const [results, setResults] = useState<Suggestion[] | null>(null);
   const [claimed, setClaimed] = useState<Set<string>>(new Set());
+  /** Bumped on every new set of suggestions so the cards cascade in again. */
+  const [batch, setBatch] = useState(0);
   const [sheetOpen, setSheetOpen] = useState(false);
   const [tab, setTab] = useState<SheetTab>("shortlist");
   const [listOpen, setListOpen] = useState(false);
@@ -58,6 +60,7 @@ export function NameChooser() {
       }),
     );
     setClaimed(new Set());
+    setBatch((b) => b + 1);
   }, [selected, systems, keywords, state.used]);
 
   // First suggestions once the browser has loaded the user's used names.
@@ -113,7 +116,7 @@ export function NameChooser() {
   }
 
   return (
-    <div className="mx-auto grid w-full max-w-3xl gap-10 px-4 pt-8 pb-24 sm:pb-16">
+    <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 pt-8 pb-24 sm:pb-16">
       <Header shortlist={state.shortlist.length} used={state.used.length} onOpen={open} />
 
       <main className="grid gap-10">
@@ -156,43 +159,51 @@ export function NameChooser() {
               </Empty>
             ) : (
               <ItemGroup aria-live="polite">
-                {(results ?? []).map((s) => (
-                  <NameCard
-                    key={s.name}
-                    s={s}
-                    format={state.nameFormat}
-                    systemName={systemName(s.system)}
-                    matched={[...new Set(matchedFor(s))]}
-                    saved={state.shortlist.some((x) => x.name === s.name)}
-                    claimed={claimed.has(s.name)}
-                    onSave={() => save(s)}
-                    onClaim={() => claim(s)}
-                    onUnclaim={() => unclaim(s)}
-                  />
-                ))}
+                <RevealList batch={batch}>
+                  {(results ?? []).map((s) => (
+                    <NameCard
+                      key={s.name}
+                      s={s}
+                      format={state.nameFormat}
+                      systemName={systemName(s.system)}
+                      matched={[...new Set(matchedFor(s))]}
+                      saved={state.shortlist.some((x) => x.name === s.name)}
+                      claimed={claimed.has(s.name)}
+                      onSave={() => save(s)}
+                      onClaim={() => claim(s)}
+                      onUnclaim={() => unclaim(s)}
+                    />
+                  ))}
+                </RevealList>
                 {results === null &&
                   Array.from({ length: COUNT }, (_, i) => (
-                    <Skeleton key={i} className="h-[106px] rounded-lg" aria-hidden />
+                    <NameCardSkeleton key={i} />
                   ))}
               </ItemGroup>
             )}
           </section>
         </div>
 
-        <InstallPanels />
-        <WhyCulture />
+        <RevealOnScroll>
+          <InstallPanels />
+        </RevealOnScroll>
+        <RevealOnScroll>
+          <WhyCulture />
+        </RevealOnScroll>
       </main>
 
-      <footer className="grid gap-4">
-        <Separator />
-        <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs text-muted-foreground">
-          <span>MIT licence</span>
-          <span>Culture ship names are the work of Iain M. Banks, used here as a fan tribute</span>
-          <a href="https://github.com/mattbx/someone-elses-problem#add-a-system-to-the-project" className="underline-offset-2 hover:text-foreground hover:underline">
-            Add a naming system
-          </a>
-        </div>
-      </footer>
+      <RevealOnScroll>
+        <footer className="grid gap-4">
+          <Separator />
+          <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs text-muted-foreground">
+            <span>MIT licence</span>
+            <span>Culture ship names are the work of Iain M. Banks, used here as a fan tribute</span>
+            <a href="https://github.com/mattbx/someone-elses-problem#add-a-system-to-the-project" className="underline-offset-2 hover:text-foreground hover:underline">
+              Add a naming system
+            </a>
+          </div>
+        </footer>
+      </RevealOnScroll>
 
       {!desktop && (
         <button

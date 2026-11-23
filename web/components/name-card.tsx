@@ -5,6 +5,7 @@ import { Star } from "lucide-react";
 import { CopyChip } from "@/components/copy-chip";
 import { Button } from "@/components/ui/button";
 import { Item, ItemActions, ItemContent, ItemDescription, ItemFooter, ItemTitle } from "@/components/ui/item";
+import { Skeleton } from "@/components/ui/skeleton";
 import type { NameFormat } from "@/lib/name-format";
 import { cn } from "@/lib/utils";
 
@@ -61,6 +62,25 @@ export function NameCard({
       </ItemActions>
       <ItemFooter className="justify-start">
         <CopyChip value={s.formats[format]} />
+      </ItemFooter>
+    </Item>
+  );
+}
+
+/** Placeholder with the same outline and layout as a NameCard, shown until suggestions load. */
+export function NameCardSkeleton() {
+  return (
+    <Item variant="outline" aria-hidden>
+      <ItemContent>
+        <Skeleton className="h-5.5 w-56 max-w-full" />
+        <Skeleton className="h-5.25 w-72 max-w-full" />
+      </ItemContent>
+      <ItemActions>
+        <Skeleton className="size-8" />
+        <Skeleton className="h-8 w-16" />
+      </ItemActions>
+      <ItemFooter className="justify-start">
+        <Skeleton className="h-7 w-48" />
       </ItemFooter>
     </Item>
   );
