@@ -4,6 +4,7 @@ import * as React from "react"
 import { Toggle as TogglePrimitive } from "@animate-ui/react/primitives/base-ui/toggle"
 import { ToggleGroup as ToggleGroupPrimitive } from "@animate-ui/react/primitives/base-ui/toggle-group"
 import { type VariantProps } from "class-variance-authority"
+import { useTheme } from "next-themes"
 import { cn } from "@/lib/utils"
 
 import { toggleVariants } from "@/components/ui/toggle"
@@ -33,8 +34,12 @@ function ToggleGroup({
     spacing?: number
     orientation?: "horizontal" | "vertical"
   }) {
+  // App: animate-ui reads each pressed item's colour once and paints it on its own surface,
+  // so remount on a theme switch to make it read the new theme's colours.
+  const { resolvedTheme } = useTheme()
   return (
     <ToggleGroupPrimitive
+      key={resolvedTheme}
       data-slot="toggle-group"
       data-variant={variant}
       data-size={size}
