@@ -40,7 +40,7 @@ export function NameChooser() {
   const [sheetOpen, setSheetOpen] = useState(false);
   const [tab, setTab] = useState<SheetTab>("shortlist");
   const [listOpen, setListOpen] = useState(false);
-  const reroll = useAnimatedIcon(RefreshCWIcon, 14);
+  const reroll = useAnimatedIcon(RefreshCWIcon);
 
   const systems = useMemo(() => [...builtinSystems, ...state.myLists], [state.myLists]);
   const sources: SourceOption[] = systems.map((s) => ({ id: s.id, label: LABELS[s.id] ?? s.name }));
@@ -180,7 +180,7 @@ export function NameChooser() {
 
       <footer className="grid gap-4">
         <Separator />
-        <div className="type-meta flex flex-wrap gap-x-3 gap-y-1 text-foreground-subtle">
+        <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs text-muted-foreground">
           <span>MIT licence</span>
           <span>Culture ship names are the work of Iain M. Banks, used here as a fan tribute</span>
           <a href="https://github.com/mattbx/someone-elses-problem#add-a-system-to-the-project" className="underline-offset-2 hover:text-foreground hover:underline">
@@ -193,10 +193,10 @@ export function NameChooser() {
         <button
           type="button"
           onClick={() => open("shortlist")}
-          className="fixed inset-x-0 bottom-0 z-20 flex items-center justify-between border-t bg-popover px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] text-[12px] text-muted-foreground"
+          className="fixed inset-x-0 bottom-0 z-20 flex items-center justify-between border-t bg-popover px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] text-sm text-muted-foreground"
         >
           <span>
-            Shortlist <Count value={state.shortlist.length} /> <span className="text-foreground-subtle">·</span> Used <Count value={state.used.length} />
+            Shortlist <Count value={state.shortlist.length} /> <span>·</span> Used <Count value={state.used.length} />
           </span>
           <span aria-hidden>▴</span>
         </button>
@@ -207,7 +207,7 @@ export function NameChooser() {
         onOpenChange={setSheetOpen}
         tab={tab}
         onTab={setTab}
-        side={desktop ? "floating" : "bottom"}
+        side={desktop ? "right" : "bottom"}
         state={state}
         systemName={systemName}
       />

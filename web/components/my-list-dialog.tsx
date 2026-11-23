@@ -7,7 +7,6 @@ import { XIcon } from "@/components/icons/x";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/toast";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { iconSize } from "@/components/ui/animated-icon";
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
 import { Item, ItemActions, ItemContent, ItemDescription, ItemGroup, ItemSeparator, ItemTitle } from "@/components/ui/item";
 import { removeMyList, saveMyList } from "@/lib/store";
@@ -67,7 +66,7 @@ export function MyListDialog({
         >
           <EmptyHeader>
             <EmptyMedia variant="icon">
-              <FileTextIcon {...iconSize(16)} />
+              <FileTextIcon />
             </EmptyMedia>
             <EmptyTitle>Drop a file here</EmptyTitle>
             <EmptyDescription>Or choose a .md, .txt or .csv file.</EmptyDescription>
@@ -103,7 +102,7 @@ export function MyListDialog({
                     </ItemContent>
                     <ItemActions>
                       <Button variant="ghost" size="icon-sm" aria-label={`Remove ${l.name}`} onClick={() => removeMyList(l.id)}>
-                        <XIcon {...iconSize(14)} />
+                        <XIcon />
                       </Button>
                     </ItemActions>
                   </Item>

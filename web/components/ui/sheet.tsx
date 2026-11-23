@@ -28,7 +28,7 @@ function SheetOverlay({ className, ...props }: SheetPrimitive.Backdrop.Props) {
     <SheetPrimitive.Backdrop
       data-slot="sheet-overlay"
       className={cn(
-        "fixed inset-0 z-50 bg-black/10 supports-backdrop-filter:backdrop-blur-[4px]",
+        "fixed inset-0 z-50 bg-black/10 supports-backdrop-filter:backdrop-blur-xs",
         className
       )}
       {...props}
@@ -43,7 +43,7 @@ function SheetContent({
   showCloseButton = true,
   ...props
 }: SheetPrimitive.Popup.Props & {
-  side?: "top" | "right" | "bottom" | "left" | "floating"
+  side?: "top" | "right" | "bottom" | "left"
   showCloseButton?: boolean
 }) {
   return (
@@ -54,10 +54,10 @@ function SheetContent({
         data-side={side}
         className={cn(
           "fixed z-50 flex flex-col gap-4 bg-popover bg-clip-padding text-sm text-popover-foreground shadow-lg data-[side=bottom]:inset-x-0 data-[side=bottom]:bottom-0 data-[side=bottom]:h-auto data-[side=bottom]:border-t data-[side=left]:inset-y-0 data-[side=left]:left-0 data-[side=left]:h-full data-[side=left]:w-3/4 data-[side=left]:border-r data-[side=right]:inset-y-0 data-[side=right]:right-0 data-[side=right]:h-full data-[side=right]:w-3/4 data-[side=right]:border-l data-[side=top]:inset-x-0 data-[side=top]:top-0 data-[side=top]:h-auto data-[side=top]:border-b data-[side=left]:sm:max-w-sm data-[side=right]:sm:max-w-sm",
-          // App: phone sheet from the bottom, rounded top, never taller than 85% of the screen.
-          "data-[side=bottom]:max-h-[85svh] data-[side=bottom]:gap-0 data-[side=bottom]:overflow-hidden data-[side=bottom]:rounded-t-xl",
-          // App: desktop floating panel, 16px in from the top, right and bottom edges.
-          "data-[side=floating]:top-4 data-[side=floating]:right-4 data-[side=floating]:bottom-4 data-[side=floating]:h-[calc(100svh-2rem)] data-[side=floating]:w-[min(32rem,calc(100vw-2rem))] data-[side=floating]:gap-0 data-[side=floating]:overflow-hidden data-[side=floating]:rounded-xl data-[side=floating]:border data-[side=floating]:p-0 data-[side=floating]:data-ending-style:translate-x-[2.5rem] data-[side=floating]:data-starting-style:translate-x-[2.5rem]",
+          // App: the bottom sheet never grows past 85% of the screen; its own content scrolls.
+          "data-[side=bottom]:max-h-[85svh] data-[side=bottom]:gap-0",
+          // App: the right sheet holds tabs and a footer edge to edge.
+          "data-[side=right]:gap-0",
           className
         )}
         {...props}

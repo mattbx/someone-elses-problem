@@ -29,15 +29,15 @@ function Panel({ label, lines, copy, comment }: { label: string; lines: string[]
         </CardAction>
       </CardHeader>
       <CardContent>
-        <pre className="overflow-x-auto font-mono text-[13px] leading-relaxed">
+        <pre className="overflow-x-auto font-mono text-sm">
           {lines.map((l, i) => (
             <span key={i}>
-              {i === 0 && <span className="text-foreground-subtle">$ </span>}
+              {i === 0 && <span className="text-muted-foreground">$ </span>}
               {l}
               {"\n"}
             </span>
           ))}
-          <span className="text-foreground-subtle"># {comment}</span>
+          <span className="text-muted-foreground"># {comment}</span>
         </pre>
       </CardContent>
     </Card>
@@ -64,8 +64,8 @@ export function InstallPanels() {
           comment="then ask Claude to name your project"
         />
       </div>
-      <p className="text-[13px] text-foreground-secondary">
-        There&apos;s also a Claude skill in the repo&apos;s <code className="font-mono text-[12px]">skill/</code> folder. The CLI, MCP server and this page all
+      <p className="text-sm text-muted-foreground">
+        There&apos;s also a Claude skill in the repo&apos;s <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">skill/</code> folder. The CLI, MCP server and this page all
         read the same used-names file, so you can export it here and import it there.
       </p>
     </section>

@@ -1,10 +1,10 @@
 "use client";
 
 import { nameKey, parseNameList } from "@sep/core";
+import { Search } from "lucide-react";
 import { Fragment, useMemo, useRef, useState } from "react";
 import { DownloadIcon } from "@/components/icons/download";
 import { GithubIcon } from "@/components/icons/github";
-import { SearchIcon } from "@/components/icons/search";
 import { UploadIcon } from "@/components/icons/upload";
 import { XIcon } from "@/components/icons/x";
 import { Count } from "@/components/count";
@@ -18,7 +18,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { toast } from "@/components/ui/toast";
 import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { iconSize, useAnimatedIcon } from "@/components/ui/animated-icon";
+import { useAnimatedIcon } from "@/components/ui/animated-icon";
 import { copyText, downloadText } from "@/lib/files";
 import {
   addUsed,
@@ -41,7 +41,7 @@ function Row({ name, meta, onRemove, removeLabel }: { name: string; meta?: strin
       </ItemContent>
       <ItemActions>
         <Button variant="ghost" size="icon-sm" aria-label={removeLabel} onClick={onRemove}>
-          <XIcon {...iconSize(14)} />
+          <XIcon />
         </Button>
       </ItemActions>
     </Item>
@@ -85,7 +85,7 @@ export function SavedSheet({
   onOpenChange: (open: boolean) => void;
   tab: SheetTab;
   onTab: (t: SheetTab) => void;
-  side: "floating" | "bottom";
+  side: "right" | "bottom";
   state: AppState;
   systemName: (id: string) => string;
 }) {
@@ -94,9 +94,9 @@ export function SavedSheet({
   const [owner, setOwner] = useState("");
   const [busy, setBusy] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
-  const gh = useAnimatedIcon(GithubIcon, 14);
-  const up = useAnimatedIcon(UploadIcon, 14);
-  const down = useAnimatedIcon(DownloadIcon, 14);
+  const gh = useAnimatedIcon(GithubIcon);
+  const up = useAnimatedIcon(UploadIcon);
+  const down = useAnimatedIcon(DownloadIcon);
 
   const used = useMemo(() => {
     const q = nameKey(query);
@@ -148,7 +148,7 @@ export function SavedSheet({
               </TabsTrigger>
             </TabsList>
             <SheetClose render={<Button variant="ghost" size="icon-sm" aria-label="Close" />}>
-              <XIcon {...iconSize(16)} />
+              <XIcon />
             </SheetClose>
           </SheetHeader>
 
@@ -197,13 +197,13 @@ export function SavedSheet({
             <div className="min-h-0 flex-1 overflow-y-auto px-4 py-3">
               <InputGroup>
                 <InputGroupAddon>
-                  <SearchIcon {...iconSize(14)} />
+                  <Search />
                 </InputGroupAddon>
                 <InputGroupInput value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search used names" aria-label="Search used names" />
               </InputGroup>
               {state.used.length === 0 ? (
                 <EmptyList>
-                  Nothing here yet. Claim a name, sync your GitHub repos, or import the file from the <code className="font-mono">sep</code> CLI.
+                  Nothing here yet. Claim a name, sync your GitHub repos, or import the file from the <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">sep</code> CLI.
                 </EmptyList>
               ) : used.length === 0 ? (
                 <EmptyList>No used names match that.</EmptyList>

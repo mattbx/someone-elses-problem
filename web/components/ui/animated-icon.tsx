@@ -9,31 +9,19 @@ export interface IconHandle {
 }
 
 type IconComponent = React.ForwardRefExoticComponent<
-  { size?: number; className?: string; style?: React.CSSProperties; "data-icon"?: string } & React.RefAttributes<IconHandle>
+  { className?: string; "data-icon"?: string } & React.RefAttributes<IconHandle>
 >;
 
 /**
- * Keeps an icon at its own size inside shadcn's Button, whose base class
- * sizes any unclassed svg to 16px. Spread onto the icon component.
- */
-export function iconSize(size: number) {
-  return {
-    size,
-    className: "pointer-events-none [&_svg]:size-(--icon-size)!",
-    style: { "--icon-size": `${size}px` } as React.CSSProperties,
-  };
-}
-
-/**
  * Lets a whole button (not just the icon's own box) drive the icon's animation.
- * Spread `hover` onto the button and render `icon`. `position` sets `data-icon`
- * so Button tightens its padding on that side.
+ * Spread `hover` onto the button and render `icon`. The button sizes the icon,
+ * and `position` sets `data-icon` so it tightens its padding on that side.
  */
-export function useAnimatedIcon(Icon: unknown, size = 16, position: "inline-start" | "inline-end" = "inline-start") {
+export function useAnimatedIcon(Icon: unknown, position: "inline-start" | "inline-end" = "inline-start") {
   const ref = React.useRef<IconHandle>(null);
   const C = Icon as IconComponent;
   return {
-    icon: <C ref={ref} data-icon={position} {...iconSize(size)} />,
+    icon: <C ref={ref} data-icon={position} className="pointer-events-none" />,
     hover: {
       onMouseEnter: () => ref.current?.startAnimation(),
       onMouseLeave: () => ref.current?.stopAnimation(),

@@ -4,7 +4,7 @@ export function WhyCulture() {
       <h2 id="why-label" className="text-sm font-medium">
         Why the Culture
       </h2>
-      <div className="grid gap-3 text-[13px] leading-relaxed text-foreground-secondary">
+      <div className="grid gap-3 text-sm/relaxed text-muted-foreground">
         <p>
           The name is a Culture ship, from Iain M. Banks&apos; <em>Look to Windward</em>. In the Culture novels the ships are vast, wise and slightly smug Minds that
           pick their own names, like <em>So Much For Subtlety</em> and <em>Of Course I Still Love You</em>. Those names have quietly named a lot of projects, and
