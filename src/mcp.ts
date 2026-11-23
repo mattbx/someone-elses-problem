@@ -1,7 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
-import { addUsed, globalRegistryPath, loadSystems, loadUsed, record, suggest } from "./node.js";
+import { addUsed, globalRegistryPath, loadSystems, loadUsed, record, suggest } from "./node";
 
 const text = (data: unknown) => ({ content: [{ type: "text" as const, text: typeof data === "string" ? data : JSON.stringify(data, null, 2) }] });
 

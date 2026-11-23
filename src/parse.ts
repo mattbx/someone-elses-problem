@@ -1,4 +1,4 @@
-import type { NameEntry } from "./types.js";
+import type { NameEntry } from "./types";
 
 export interface ParsedList {
   entries: NameEntry[];

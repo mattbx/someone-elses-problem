@@ -1,5 +1,5 @@
-import { pick } from "../rng.js";
-import type { NamingSystem } from "../types.js";
+import { pick } from "../rng";
+import type { NamingSystem } from "../types";
 
 // Adjective + animal sharing a first letter, in the spirit of Ubuntu release names.
 // Word lists written for this project.

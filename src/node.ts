@@ -1,11 +1,11 @@
 import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { dirname, join, resolve } from "node:path";
-import { nameKey } from "./format.js";
-import { builtinSystems } from "./systems/index.js";
-import type { NamingSystem, Registry, UsedName } from "./types.js";
+import { nameKey } from "./format";
+import { builtinSystems } from "./systems/index";
+import type { NamingSystem, Registry, UsedName } from "./types";
 
-export * from "./index.js";
+export * from "./index";
 
 /** ~/.config/someone-elses-problem, or $SEP_HOME. */
 export function configDir(): string {

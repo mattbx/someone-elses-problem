@@ -1,4 +1,4 @@
-import type { NameFormats } from "./types.js";
+import type { NameFormats } from "./types";
 
 /** Split a name into plain lowercase words: "Funny, It's Late..." -> ["funny", "its", "late"]. */
 export function words(name: string): string[] {
