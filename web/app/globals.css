@@ -159,3 +159,12 @@
 @media (prefers-reduced-motion: reduce) {
   .animate-bump { animation: none; }
 }
+
+/* Shiki (code-block): use the dark theme's token colours in dark mode. */
+.dark .shiki, .dark .shiki span {
+  background-color: transparent !important;
+  color: var(--shiki-dark) !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
+}
