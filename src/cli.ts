@@ -16,7 +16,7 @@ import {
   saveCustomSystem,
   suggest,
   words,
-} from "./node.js";
+} from "./node";
 
 const VERSION = "0.1.0";
 const tty = process.stdout.isTTY && !process.env.NO_COLOR;
@@ -161,7 +161,7 @@ async function main(argv: string[]) {
       return;
     }
     case "mcp": {
-      const { runMcpServer } = await import("./mcp.js");
+      const { runMcpServer } = await import("./mcp");
       await runMcpServer();
       return;
     }

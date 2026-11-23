@@ -1,5 +1,5 @@
-import { pick } from "../rng.js";
-import type { NamingSystem } from "../types.js";
+import { pick } from "../rng";
+import type { NamingSystem } from "../types";
 
 // Adjective + the surname of a notable scientist or engineer, the pattern made
 // famous by Docker's container names. Lists written for this project.

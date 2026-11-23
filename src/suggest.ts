@@ -1,6 +1,6 @@
-import { formats, nameKey, words } from "./format.js";
-import { makeRng } from "./rng.js";
-import type { NamingSystem, SuggestOptions, Suggestion } from "./types.js";
+import { formats, nameKey, words } from "./format";
+import { makeRng } from "./rng";
+import type { NamingSystem, SuggestOptions, Suggestion } from "./types";
 
 const STOPWORDS = new Set(["a", "an", "the", "and", "or", "for", "of", "to", "in", "on", "with", "my", "our", "it", "is", "that", "this"]);
 

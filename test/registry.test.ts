@@ -2,7 +2,7 @@ import { mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { beforeEach, describe, expect, it } from "vitest";
-import { addUsed, globalRegistryPath, loadSystems, loadUsed, readRegistry, record, removeUsed, saveCustomSystem } from "../src/node.js";
+import { addUsed, globalRegistryPath, loadSystems, loadUsed, readRegistry, record, removeUsed, saveCustomSystem } from "../src/node";
 
 let home: string;
 beforeEach(() => {

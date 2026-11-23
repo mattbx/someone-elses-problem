@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { builtinSystems, formats, nameKey, parseNameList, suggest } from "../src/index.js";
-import type { NamingSystem } from "../src/types.js";
+import { builtinSystems, formats, nameKey, parseNameList, suggest } from "../src/index";
+import type { NamingSystem } from "../src/types";
 
 describe("nameKey and formats", () => {
   it("treats spacing, case and punctuation as the same name", () => {

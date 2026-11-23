@@ -114,6 +114,10 @@ If you haven't read them, please do. *The Player of Games* is an easy way in, an
 
 The original Culture-style names in `culture-style` were written for this project and are MIT licensed. The 30 names in `culture-canon-sample` are Iain M. Banks' creative work, listed as a short fan reference. This project is not affiliated with the Banks estate. We don't ship the full canon list; if you have one, `sep import` it.
 
+## Web page
+
+`web/` holds the single-page name chooser (Next.js, static export). See [web/README.md](web/README.md).
+
 ## Develop
 
 ```sh
