@@ -455,6 +455,10 @@ const drawAtlas = (atlas: NonNullable<Options["atlas"]>) => {
 const byCanvas = new WeakMap<HTMLCanvasElement, Instance>();
 // A canvas whose context we handed back, to ask for it again on a remount.
 const released = new WeakMap<HTMLCanvasElement, WEBGL_lose_context>();
+// A loss we started whose event has not finished. Restoring during it is ignored.
+const pendingLoss = new WeakSet<HTMLCanvasElement>();
+// A remount asked to restore before that event finished.
+const restoreOnLoss = new WeakSet<HTMLCanvasElement>();
 const byteOf = (scale: number | undefined) =>
   Math.min(Math.max(scale ?? 1, 0.25), 1);
 
@@ -704,8 +708,9 @@ const start = (
     }
     const steps = Math.max(1, options.simulation?.steps ?? 1);
     owed = Math.min(owed + dt * 60 * steps, steps * 4);
-    // A held frame (dt 0) still takes one run, so a new size or seed shows.
-    const runs = seeded ? Math.max(Math.floor(owed), dt === 0 ? 1 : 0) : 1;
+    // Seed once after init or a resize. A held frame, including refresh()'s
+    // draw(0), does not step a simulation that already has.
+    const runs = seeded ? (dt === 0 ? 0 : Math.floor(owed)) : 1;
     owed -= Math.min(runs, owed);
     context.viewport(0, 0, simW, simH);
     for (let i = 0; i < runs; i += 1) {
@@ -759,8 +764,13 @@ const start = (
     gl = context;
     if (context.isContextLost()) {
       // Ours, let go on an earlier unmount: it rebuilds when it's back.
-      released.get(canvas)?.restoreContext();
-      released.delete(canvas);
+      // Restoring before the loss event finishes is ignored, so wait for it.
+      if (pendingLoss.has(canvas)) {
+        restoreOnLoss.add(canvas);
+      } else {
+        released.get(canvas)?.restoreContext();
+        released.delete(canvas);
+      }
       return false;
     }
     for (const pass of [scene, sim]) {
@@ -782,6 +792,14 @@ const start = (
           )
         : null;
     } catch (error) {
+      for (const pass of [scene, sim]) {
+        if (pass) {
+          context.deleteProgram(pass.program);
+        }
+      }
+      [scene, sim] = [null, null];
+      running.delete(instance);
+      sync();
       console.warn(`[background] ${root.dataset.slot ?? ""}`, error);
       state("unsupported");
       return false;
@@ -834,12 +852,32 @@ const start = (
       unwatch(root, instance);
       pointers.delete(onPointer);
       byCanvas.delete(canvas);
-      off.abort();
       // Hand the context back now: a page may hold only a few.
+      // The loss listener stays until the event, and preventDefault keeps it restorable.
       const lose = gl?.getExtension("WEBGL_lose_context");
       if (lose && !gl?.isContextLost()) {
         released.set(canvas, lose);
+        pendingLoss.add(canvas);
+        canvas.addEventListener(
+          "webglcontextlost",
+          (event) => {
+            event.preventDefault();
+            pendingLoss.delete(canvas);
+            off.abort();
+            if (!restoreOnLoss.has(canvas)) {
+              return;
+            }
+            restoreOnLoss.delete(canvas);
+            queueMicrotask(() => {
+              lose.restoreContext();
+              released.delete(canvas);
+            });
+          },
+          { once: true }
+        );
         lose.loseContext();
+      } else {
+        off.abort();
       }
       [gl, scene, sim] = [null, null, null];
     },

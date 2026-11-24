@@ -122,7 +122,7 @@ uniform float uWarp;
 vec3 legible(vec3 c) {
   vec3 lab = toOklab(c);
   float ground = toOklab(uSurface).x;
-  lab.x = mix(lab.x, ground > 0.5 ? 0.2 : 0.97, smoothstep(0.22, 0.1, abs(lab.x - ground)));
+  lab.x = mix(lab.x, ground > 0.5 ? 0.2 : 0.97, 1.0 - smoothstep(0.1, 0.22, abs(lab.x - ground)));
   return lab;
 }
 
@@ -157,7 +157,7 @@ vec4 stars(vec2 p, float z, float px, float seed, float crowd, mat2 turn, mat3 t
       float core = exp(-dist * dist / (rr * rr));
       float halo = mix(0.25, 0.45, uDark) * exp(-dist / (rr * 2.6));
       float arms = mix(0.3, 0.6, uDark) * exp(-min(abs(d.x), abs(d.y)) / (rr * 0.4) - dist / (rr * 5.0));
-      float amount = (core + bright * (halo + arms)) * b * smoothstep(0.5, 0.32, dist / px) * smoothstep(crowd + 0.07, crowd - 0.07, k.z);
+      float amount = (core + bright * (halo + arms)) * b * (1.0 - smoothstep(0.32, 0.5, dist / px)) * (1.0 - smoothstep(crowd - 0.07, crowd + 0.07, k.z));
       // Most stars keep the base colour; some lean blue, some amber.
       float t = fract(k.z * 31.7) * 2.0 - 1.0;
       vec3 tone = mix(tones[0], t > 0.0 ? tones[2] : tones[1], smoothstep(0.2, 1.0, abs(t)) * uWarmth);
@@ -201,7 +201,7 @@ vec4 scene(vec2 frag) {
     float pace = 4.5 * mix(1.0 / home, 1.0 / (64.0 * pack), spread);
     mat2 spin = rotate(fl * 0.71 + 0.4);
     vec2 q = spin * ((p - lean * 26.0 * uDepth * (0.15 + z)) / cell - way * drift * pace) + fl * 13.7;
-    float fade = smoothstep(0.0, 0.1, z) * smoothstep(1.0, 0.9, z);
+    float fade = smoothstep(0.0, 0.1, z) * (1.0 - smoothstep(0.9, 1.0, z));
     // More of the faint far stars where the haze is thick.
     float crowd = mix(mix(0.4, 0.9, mist), 0.72, z);
     sum += stars(q, z, cell * uPixelRatio, fl * 37.0, crowd, spin, tones) * fade * mix(0.7, 1.0, z);

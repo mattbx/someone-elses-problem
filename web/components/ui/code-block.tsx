@@ -70,25 +70,23 @@ function CodeBlockCopyButton({ code, className, ...props }: React.ComponentProps
   const handleCopy = React.useCallback(() => {
     if (typeof navigator === 'undefined') return
 
-    const write = (text: string) => {
+    const markCopied = () => {
       setCopied(true)
       setTimeout(() => setCopied(false), 1500)
+    }
 
-      return text
+    const copyWithFallback = () => {
+      if (fallbackCopy(code)) {
+        markCopied()
+        return
+      }
+      window.prompt('Copy this text manually:', code)
     }
 
     if (navigator.clipboard && typeof window !== 'undefined' && window.isSecureContext) {
-      navigator.clipboard
-        .writeText(code)
-        .then(() => write(code))
-        .catch(() => {
-          // Clipboard API rejected — use execCommand fallback silently
-          fallbackCopy(code)
-          write(code)
-        })
+      navigator.clipboard.writeText(code).then(markCopied).catch(copyWithFallback)
     } else {
-      fallbackCopy(code)
-      write(code)
+      copyWithFallback()
     }
   }, [code])
 
@@ -122,7 +120,9 @@ function fallbackCopy(text: string) {
   el.select()
 
   try {
-    document.execCommand('copy')
+    return document.execCommand('copy')
+  } catch {
+    return false
   } finally {
     document.body.removeChild(el)
   }
@@ -306,7 +306,9 @@ function CodeBlock({
           </span>
         )}
 
-        {activeFile && <CodeBlockCopyButton code={activeFile.code} className='mr-1 shrink-0' />}
+        {activeFile && (
+          <CodeBlockCopyButton key={activeFile.filename} code={activeFile.code} className='mr-1 shrink-0' />
+        )}
       </div>
 
       {/* Code pane – no copy button inside since header already has one */}
